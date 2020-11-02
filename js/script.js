@@ -283,21 +283,17 @@ var Principal = new Phaser.Class({
 function hitDeath (player){
 
     player.setTint(0x000000);
-    //this.physics.pause();
-    //player.anims.play('turn');
+    this.physics.pause();
+    player.anims.play('turn');
    
 
 }
 
 function deathNerudo(bala, enemiesGroup){
     
-      
-    //enemiesGroup.setTint(0x000000);
     enemiesGroup.setVisible(false);
     enemiesGroup.setActive(false);
     enemiesGroup.body.enable = false;
-    //this.physics.add.overlap(enemiesGroup, collider);
-    //enemiesGroup.destroy();
     bala.destroy(); 
     
 }
