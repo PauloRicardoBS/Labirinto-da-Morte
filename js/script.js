@@ -186,11 +186,13 @@ var Principal = new Phaser.Class({
         }
 
         vidaGroup.refresh();    
-        this.physics.add.overlap(player, vidaGroup, spriteHitHealth);   
+        this.physics.add.overlap(player, vidaGroup, spriteHitHealth);  
     
     },
 
     update(){
+
+
 
         if (cursors.left.isDown){
 

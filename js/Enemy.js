@@ -11,7 +11,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite{
         this.scene.add.existing(this)
 
         this.timeEvent = this.scene.time.addEvent({
-            delay : 3000,
+            delay : 1000,
             callback : this.move,
             loop : true,
             callbackScope : this
@@ -21,28 +21,25 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite{
 
 
     move(){
-        
-        const randNumber = Math.floor(Math.random()* 4 *1);
+              
+        const randNumber = Math.floor(Math.random()*4);
         switch (randNumber){
 
             case 1:
                 this.anims.play('Nerudoright', true);
-                this.setVelocityX(100)
+                this.setVelocityX(100);
                 break
             case 2:
                 this.anims.play('Nerudoleft', true);
-                this.setVelocityX(-100) 
+                this.setVelocityX(-100);
                 break
-        }
+            
+            default:
+                this.anims.play('Nerudoturn');
+                this.setVelocityX(0);
+                break
 
-        /*this.scene.time.addEvent({
-            delay : 3500,
-            callback : () => {
-                this.setVelocityX(0)
-            },
-            callbackScope : this
-        })*/
-    
+        }
     }
 
 
