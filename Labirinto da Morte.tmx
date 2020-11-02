@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="3">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="24">
  <editorsettings>
   <export target="Labirinto da Morte.json" format="json"/>
  </editorsettings>
@@ -9716,7 +9716,7 @@
 129,130,131,129,130,131,129,130,131,129,130,131,946,947,948,946,947,948,946,947,948,946,947,948,946,947,946,947,946,947,948,947,946,947,948,946,947,948,946,947,946,947,948,782,783,784,554,555,556,554,555,556,554,555,556,554,555,556,554,555,556,554,555,556,554,555,556,554,555,556,554,555,556,554,555,556,554,555,556,554,555,556,554,555,556,554,555,556,554,555,556,554,555,556,554,555,556,554,555,340
 </data>
  </layer>
- <layer id="7" name="groud2" width="100" height="100">
+ <layer id="7" name="groud2" width="100" height="100" offsetx="2" offsety="-73">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -9820,12 +9820,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="8" name="inimigo">
-  <object id="1" name="inimigo" type="inimigo" x="3031" y="3131">
-   <point/>
-  </object>
- </objectgroup>
- <layer id="1" name="groud" width="100" height="100" visible="0" offsetx="0" offsety="2">
+ <layer id="1" name="groud" width="100" height="100" offsetx="0" offsety="2">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -9929,4 +9924,36 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="13" name="inimigo">
+  <object id="11" name="inimigo" type="inimigo" x="2860" y="2838">
+   <point/>
+  </object>
+  <object id="15" name="inimigo" type="inimigo" x="3307" y="3512">
+   <point/>
+  </object>
+  <object id="16" name="inimigo" type="inimigo" x="2028" y="3116">
+   <point/>
+  </object>
+  <object id="17" name="inimigo" type="inimigo" x="2757.58" y="2584.85">
+   <point/>
+  </object>
+  <object id="18" name="inimigo" type="inimigo" x="2527.27" y="3118.18">
+   <point/>
+  </object>
+  <object id="19" name="inimigo" type="inimigo" x="1724.24" y="2293.94">
+   <point/>
+  </object>
+  <object id="20" name="inimigo" type="inimigo" x="712.121" y="2918.18">
+   <point/>
+  </object>
+  <object id="21" name="inimigo" type="inimigo" x="718.182" y="2515.15">
+   <point/>
+  </object>
+  <object id="22" name="inimigo" type="inimigo" x="1184.85" y="2712.12">
+   <point/>
+  </object>
+  <object id="23" name="inimigo" type="inimigo" x="663.636" y="2342.42">
+   <point/>
+  </object>
+ </objectgroup>
 </map>
