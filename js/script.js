@@ -1,6 +1,6 @@
 import Enemies from "./Enemies.js";
 
-var player, nerudoVida = 3, bala, shoot, graphics, cursors, collider, camera, enemies, 
+var player, chefao1, chefao1Vida = 2, playerVida = 12, bala, bala1, shoot, graphics, cursors, collider, camera, enemies, 
     playerPodeAtirar = 1, textTela, tiro = 20, tileset, groud, groud2, 
     map, vidaGroup, maxVidas = 10, atualVidas = 2, enter, butao, texto, Nerudo;
 
@@ -55,9 +55,12 @@ var Principal = new Phaser.Class({
         this.load.image("tiles", "img/cenario.png");
         this.load.image('vida', 'img/coração.png')
         this.load.tilemapTiledJSON("map", "Labirinto da Morte.json");
-        this.load.spritesheet('dude', "img/player2.png", {frameWidth: 49, frameHeight: 48});
-        this.load.spritesheet('nerudo', 'img/personagens/inimigo.png', {frameWidth: 49, frameHeight: 48});
+        this.load.spritesheet('paul', "img/player2.png", {frameWidth: 49, frameHeight: 48});
+        this.load.spritesheet('nerudo', 'img/personagens/inimigo.png', {frameWidth: 48, frameHeight: 48});
+        this.load.spritesheet('chefe1', 'img/personagens/chefão01.png', {frameWidth: 149, frameHeight: 160});
         this.load.image('bala', "img/bala.png");
+        this.load.image('bola_fogo', "img/bola_fogo.png");
+        this.load.image('tigre', "img/tigre_gelo.png");
         this.load.image('deserto', "img/deserto.png");
         this.load.image('ceu', "img/céu estrelado.png");
         this.load.audio('gun', 'sons/gun.wav');
@@ -72,6 +75,7 @@ var Principal = new Phaser.Class({
         //imagens e mapa  
         this.add.image(1622, 2650, 'ceu');
         this.add.image(1602, 1617, 'deserto');
+        //this.add.image(3000, 2250, 'chefe1');
         map = this.make.tilemap({key : "map"});
         tileset = map.addTilesetImage("cenario", "tiles");
         groud = map.createStaticLayer("groud", tileset, 0, 0);  
@@ -80,21 +84,23 @@ var Principal = new Phaser.Class({
         this.enemies = map.createFromObjects("inimigo", "inimigo", {});
         this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);
         
-
-        
-        player = this.physics.add.sprite(2990,2600 , 'dude');
-        //Nerudo = this.physics.add.sprite(700, 2777, 'nerudo'); 
+        player = this.physics.add.sprite(2150, 2250 , 'paul');
+        chefao1 = this.physics.add.sprite(3000, 2250 , 'chefe1');
         groud2 = map.createStaticLayer("groud2", tileset, 0, 0);
         cursors = this.input.keyboard.createCursorKeys();
         collider = map.createStaticLayer("colisao", tileset, 0, 0);
         collider.setCollisionByProperty({"colisao": true});   
         this.physics.add.collider(player, collider);
         player.setCollideWorldBounds(true);
-        //this.physics.add.collider(Nerudo, collider);
-        //Nerudo.setCollideWorldBounds(true);
-        this.physics.add.collider(player, this.enemiesGroup, hitDeath, null, this);
+        this.physics.add.collider(chefao1, collider);
+        chefao1.setCollideWorldBounds(true);
+        
+
+        this.physics.add.collider(player, this.enemiesGroup, deathPlayer, null, this);
+        this.physics.add.collider(player, chefao1, morteSubita, null, this);
         this.physics.add.collider(this.enemiesGroup, collider);
-    
+        
+
         // sons
         this.gun = this.sound.add('gun', {loop : false });
         this.pulo = this.sound.add('pulo', { loop : false});
@@ -109,20 +115,20 @@ var Principal = new Phaser.Class({
         //Movimentações
         this.anims.create({
             key: 'left',
-            frames: this.anims.generateFrameNumbers('dude', { start: 3, end: 0}),
+            frames: this.anims.generateFrameNumbers('paul', { start: 3, end: 0}),
             frameRate: 10,
             repeat: -1
         });
         
         this.anims.create({
             key: 'turn',
-            frames: [ { key: 'dude', frame: 4 } ],
+            frames: [ { key: 'paul', frame: 4 } ],
             frameRate: 0
         });
     
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('dude', { start: 6, end: 8}),
+            frames: this.anims.generateFrameNumbers('paul', { start: 6, end: 8}),
             frameRate: 10,
             repeat: -1
         });
@@ -145,9 +151,19 @@ var Principal = new Phaser.Class({
             frames: this.anims.generateFrameNumbers('nerudo', { start: 0, end: 3}),
             frameRate: 10,
             repeat: -1
+        });  
+
+        this.anims.create({
+            key: 'Bolaturn',
+            frames: [ { key: 'bola_fogo', frame: 0 } ],
+            frameRate: 10
         });
 
-        
+        this.anims.create({
+            key: 'Bolaturn',
+            frames: [ { key: 'bala', frame: 0 } ],
+            frameRate: 10
+        });
 
 
         //Acompanhando o placar e a tela
@@ -186,12 +202,12 @@ var Principal = new Phaser.Class({
         }
 
         vidaGroup.refresh();    
-        this.physics.add.overlap(player, vidaGroup, spriteHitHealth);  
-    
+        this.physics.add.overlap(player, vidaGroup, spriteHitHealth); 
+
+
     },
 
     update(){
-
 
 
         if (cursors.left.isDown){
@@ -214,6 +230,9 @@ var Principal = new Phaser.Class({
             
             bala = this.physics.add.sprite(player.x-37, player.y+3, 'bala');
             bala.setVelocityX(-1800);
+            bala1 = this.physics.add.sprite(chefao1.x-96, chefao1.y-10, 'tigre');
+            bala1.setVelocityX(-200);
+
             playerPodeAtirar = 0;  
             this.gun.play();          
             tiro = tiro -1;
@@ -222,8 +241,13 @@ var Principal = new Phaser.Class({
             }
             
             this.physics.add.collider(bala, collider, destroyBala);
-            this.physics.add.collider(bala,this.enemiesGroup, deathNerudo, null, this);
-            bala.setCollideWorldBounds(true);       
+            this.physics.add.collider(bala, this.enemiesGroup, deathNerudo, null, this);
+            bala.setCollideWorldBounds(true);
+
+            this.physics.add.collider(bala1, collider);
+            this.physics.add.collider(bala1, bala, deathChefao1, null, this);
+            this.physics.add.collider(bala1, player, deathPlayerChefao1, null, this);
+            bala1.setCollideWorldBounds(true);       
 
         }
 
@@ -231,6 +255,8 @@ var Principal = new Phaser.Class({
             
             bala = this.physics.add.sprite(player.x+39, player.y+5, 'bala');
             bala.setVelocityX(1800);
+            bala1 = this.physics.add.sprite(chefao1.x-96, chefao1.y-10, 'tigre');
+            bala1.setVelocityX(-200);
             playerPodeAtirar = 0;
             this.gun.play();
             tiro = tiro -1;
@@ -241,8 +267,13 @@ var Principal = new Phaser.Class({
             this.physics.add.collider(bala, collider, destroyBala);
             this.physics.add.collider(bala, this.enemiesGroup, deathNerudo, null, this);
             bala.setCollideWorldBounds(true);
-            
-            }
+
+            this.physics.add.collider(bala1, collider);
+            this.physics.add.collider(bala, chefao1, deathChefao1, null, this);
+            this.physics.add.collider(bala1, player, deathPlayerChefao1, null, this);
+            bala1.setCollideWorldBounds(true); 
+
+        }
 
         if (cursors.up.isDown){
             
@@ -250,9 +281,8 @@ var Principal = new Phaser.Class({
                 this.pulo.play();
                 player.body.setVelocityY(-450);
             }
-        }      
+        } 
         
-
         var cam = this.cameras.main;
 
         if (cam.deadzone){
@@ -273,23 +303,74 @@ var Principal = new Phaser.Class({
         {
             textTela.setText([
                 'Qtd Balas: ' + tiro + '\n' + 'Vidas: ' + atualVidas,
-                'Nerudo: ' + nerudoVida]);
+                'Chefão 01: ' + chefao1Vida,
+                'Player: ' + playerVida]);
         }
 
         if(cursors.space.isUp && tiro > 0){
             playerPodeAtirar = 1;
         }
+    
     }
 });
 
-function hitDeath (player){
 
-    player.setTint(0x000000);
+function morteSubita (player){
+    
+    player.setTint(0x1E90FF);
     this.physics.pause();
-    player.anims.play('turn');
+    player.anims.play('turn');  
+
+}
+
+function deathPlayer (player, enemiesGroup){
+
+    enemiesGroup.setVisible(false);
+    enemiesGroup.setActive(false);
+    enemiesGroup.body.enable = false;
+    playerVida = playerVida - 1;    
+
+    if (playerVida == 0){
+        
+        player.setTint(0xff0000);
+        this.physics.pause();
+        player.anims.play('turn');
+    }
    
 
 }
+
+function deathChefao1(bala1, chefao1){
+  
+    chefao1Vida = chefao1Vida - 1; 
+    bala1.setVisible(false);
+    bala1.setActive(false);
+    bala1.body.enable = false;
+
+    if (chefao1Vida == 0){
+
+        bala1.destroy();        
+        chefao1.destroy();
+    }
+}
+
+function deathPlayerChefao1 (bala1, player){
+
+    playerVida = playerVida - 1; 
+    bala1.setVisible(false);
+    bala1.setActive(false);
+    bala1.body.enable = false;
+
+    if (playerVida == 0){
+        
+        player.setTint(0x1E90FF);
+        this.physics.pause();
+        player.anims.play('turn');
+    }
+   
+
+}
+
 
 function deathNerudo(bala, enemiesGroup){
     
@@ -300,8 +381,11 @@ function deathNerudo(bala, enemiesGroup){
     
 }
 
+
 function destroyBala(bala){
+
     bala.destroy();
+
 }
 
 function spriteHitHealth (vida){    
