@@ -30,19 +30,19 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite{
                 
                 this.anims.play('Nerudoright', true);
                 this.setVelocityX(100);
-
                 break
 
             case 2:
+
                 this.anims.play('Nerudoleft', true);
                 this.setVelocityX(-100);
                 break
             
             default:
+
                 this.anims.play('Nerudoturn');
                 this.setVelocityX(0);
                 break
-
         }
 
         switch (randNumber){
@@ -51,13 +51,12 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite{
                 
                 this.anims.play('Bolaturn', true);
                 this.setVelocityX(300);
-
                 break
+
             case 4:
                 
                 this.anims.play('Bolaturn', true);
                 this.setVelocityX(-300);
-    
                 break
 
     }
