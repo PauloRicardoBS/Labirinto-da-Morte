@@ -101,16 +101,16 @@ var Principal = new Phaser.Class({
 
         var cartucho1 = this.physics.add.staticImage(1807, 894,  'cartucho').refreshBody();
         var cartucho2 = this.physics.add.staticImage(2070, 264,  'cartucho').refreshBody();
-        var cartucho3 = this.physics.add.staticImage(78, 2915,  'cartucho').refreshBody();
-        var cartucho4 = this.physics.add.staticImage(1106, 2893,  'cartucho').refreshBody();
+        var cartucho3 = this.physics.add.staticImage(78, 2915,   'cartucho').refreshBody();
+        var cartucho4 = this.physics.add.staticImage(1106, 2893, 'cartucho').refreshBody();
         var cartucho5 = this.physics.add.staticImage(924, 2333,  'cartucho').refreshBody();
-        var cartucho6 = this.physics.add.staticImage(2290, 2272,  'cartucho').refreshBody();
+        var cartucho6 = this.physics.add.staticImage(2290, 2272, 'cartucho').refreshBody();
         var cartucho7 = this.physics.add.staticImage(2744, 1989,  'cartucho').refreshBody();
         var cartucho8 = this.physics.add.staticImage(1959, 1532,  'cartucho').refreshBody();
         var cartucho9 = this.physics.add.staticImage(2814, 1356,  'cartucho').refreshBody();
         var cartucho0 = this.physics.add.staticImage(2399, 1226,  'cartucho').refreshBody();
         
-        player = this.physics.add.sprite(75, 2915, 'paul');
+        player = this.physics.add.sprite(75, 2975, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2250 , 'chefe1').refreshBody();
         groud2 = map.createStaticLayer("groud2", tileset, 0, 0);
         cursors = this.input.keyboard.createCursorKeys();
@@ -119,13 +119,29 @@ var Principal = new Phaser.Class({
         this.physics.add.collider(player, collider);
         player.setCollideWorldBounds(true);
         this.physics.add.collider(chefao1, collider);
-        this.physics.add.collider(vida, player, collectVida, null, this);
+
+        //Coletando as vidas
+        this.physics.add.collider(vida,  player, collectVida, null, this);
         this.physics.add.collider(vida1, player, collectVida, null, this);
         this.physics.add.collider(vida2, player, collectVida, null, this);
         this.physics.add.collider(vida3, player, collectVida, null, this);
         this.physics.add.collider(vida4, player, collectVida, null, this);
         this.physics.add.collider(vida5, player, collectVida, null, this);  
-        this.physics.add.collider(vida6, player, collectVida, null, this);      
+        this.physics.add.collider(vida6, player, collectVida, null, this);  
+        
+        //Coletando os cartuchos
+        this.physics.add.collider(cartucho1,  player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho2,  player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho3,  player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho4,  player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho5,  player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho6,  player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho7,  player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho8,  player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho9,  player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho0,  player, collectCartucho, null, this);
+
+        
 
         this.physics.add.collider(player, this.enemiesGroup, deathPlayer, null, this);
         this.physics.add.collider(player, chefao1, morteSubita, null, this);
@@ -198,8 +214,8 @@ var Principal = new Phaser.Class({
         textTela = this.add.text(20, 0,'0', {
             fontFamily: 'Verdana',
             fontSize: '22px',
-            backgroundColor: 'rgba(0.3, 0.3, 0.3, 0.3)',
-            fill: 'white'
+            backgroundColor: 'rgba(0.1, 0.4, 0.4, 0.4)',
+            fill: 'yellow'
     
 
         }).setScrollFactor(0);
@@ -341,6 +357,12 @@ function collectVida(vida){
     vida.disableBody(true, true);
     atualVidas = atualVidas + 1;
 
+}
+
+function collectCartucho(cartucho){
+
+    cartucho.disableBody(true, true);
+    tiro = tiro + 12;
 }
 
 
