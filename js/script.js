@@ -55,6 +55,7 @@ var Principal = new Phaser.Class({
         this.load.spritesheet('paul', "img/player2.png", {frameWidth: 49, frameHeight: 48});
         this.load.spritesheet('nerudo', 'img/personagens/inimigo.png', {frameWidth: 48, frameHeight: 48});
         this.load.image('chefe1', 'img/personagens/chefão01.png');
+        this.load.image('barreira', 'img/personagens/barreira.png');
         this.load.image('bala', "img/bala.png");
         this.load.image('bola_fogo', "img/bola_fogo.png");
         this.load.image('tigre', "img/tigre_gelo.png");
