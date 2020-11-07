@@ -3,7 +3,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite{
 
     constructor(scene, x, y){
 
-        super(scene, x, y, 'nerudo', 0)
+        super(scene, x, y, 'inimigo', 0)
         this.scene = scene
 
         this.scene.physics.world.enable(this)
@@ -28,19 +28,19 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite{
 
             case 1:
                 
-                this.anims.play('Nerudoright', true);
+                this.anims.play('Inimigoright', true);
                 this.setVelocityX(100);
                 break
 
             case 2:
 
-                this.anims.play('Nerudoleft', true);
+                this.anims.play('Inimigoleft', true);
                 this.setVelocityX(-100);
                 break
             
             default:
 
-                this.anims.play('Nerudoturn');
+                this.anims.play('Inimigoturn');
                 this.setVelocityX(0);
                 break
         }
@@ -50,13 +50,13 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite{
             case 3:
                 
                 this.anims.play('Bolaturn', true);
-                this.setVelocityX(300);
+                this.setVelocityX(350);
                 break
 
             case 4:
                 
                 this.anims.play('Bolaturn', true);
-                this.setVelocityX(-300);
+                this.setVelocityX(-350);
                 break
 
     }

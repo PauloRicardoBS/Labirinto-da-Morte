@@ -1,8 +1,8 @@
 import Enemies from "./Enemies.js";
 
-var player, score = 0, tempo, chefao1, chefao1Vida = 10, chefao2Vida = 20, chefao3Vida = 30, bala, bala1, 
-    graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 1000, 
-    tileset, groud, groud2, map, atualVidas = 34, enter, butao, texto, Nerudo;
+var player, score = 0, tempo, chefao1, barreira, chefao1Vida = 10, chefao2Vida = 20, chefao3Vida = 30, bala, bala1, 
+    graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 10, 
+    tileset, groud, groud2, map, atualVidas = 5, enter, butao, texto, Nerudo;
 
 var Menu = new Phaser.Class({
     Extends: Phaser.Scene,
@@ -53,15 +53,15 @@ var Principal = new Phaser.Class({
         this.load.image('vida', 'img/coração.png')
         this.load.tilemapTiledJSON("map", "Labirinto da Morte.json");
         this.load.spritesheet('paul', "img/player2.png", {frameWidth: 49, frameHeight: 48});
-        this.load.spritesheet('nerudo', 'img/personagens/inimigo.png', {frameWidth: 48, frameHeight: 48});
+        this.load.spritesheet('inimigo', 'img/personagens/inimigo.png', {frameWidth: 48, frameHeight: 48});
         this.load.image('chefe1', 'img/personagens/chefão01.png');
-        this.load.image('barreira', 'img/personagens/barreira.png');
+        this.load.image('barreira', 'img/barreira.png');
         this.load.image('bala', "img/bala.png");
         this.load.image('bola_fogo', "img/bola_fogo.png");
         this.load.image('tigre', "img/tigre_gelo.png");
         this.load.image('deserto', "img/deserto.png");
         this.load.image('fase3', "img/fase3.png");
-        this.load.image('cartucho', "img/star.png");        
+        this.load.image('cartucho', "img/cartucho.png");        
         this.load.image('ceu', "img/céu estrelado.png");
         this.load.audio('gun', 'sons/gun.wav');
         this.load.audio('pulo', 'sons/pulo.mp3');        
@@ -111,8 +111,9 @@ var Principal = new Phaser.Class({
         var cartucho9 = this.physics.add.staticImage(2814, 1356,  'cartucho').refreshBody();
         var cartucho0 = this.physics.add.staticImage(2399, 1226,  'cartucho').refreshBody();
         
-        player = this.physics.add.sprite(75, 2975, 'paul');
+        player = this.physics.add.sprite(75, 2915, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2250 , 'chefe1').refreshBody();
+        barreira = this.physics.add.staticImage(1429, 2276, 'barreira').refreshBody();
         groud2 = map.createStaticLayer("groud2", tileset, 0, 0);
         cursors = this.input.keyboard.createCursorKeys();
         collider = map.createStaticLayer("colisao", tileset, 0, 0);
@@ -120,6 +121,7 @@ var Principal = new Phaser.Class({
         this.physics.add.collider(player, collider);
         player.setCollideWorldBounds(true);
         this.physics.add.collider(chefao1, collider);
+        this.physics.add.collider(barreira, collider);
 
         //Coletando as vidas
         this.physics.add.collider(vida,  player, collectVida, null, this);
@@ -179,21 +181,21 @@ var Principal = new Phaser.Class({
         });
 
         this.anims.create({
-            key: 'Nerudoleft',
-            frames: this.anims.generateFrameNumbers('nerudo', { start: 4, end: 7}),
+            key: 'Inimigoleft',
+            frames: this.anims.generateFrameNumbers('inimigo', { start: 4, end: 7}),
             frameRate: 10,
             repeat: -1
         });
         
         this.anims.create({
-            key: 'Nerudoturn',
-            frames: [ { key: 'nerudo', frame: 6 } ],
+            key: 'Inimigoturn',
+            frames: [ { key: 'inimigo', frame: 6 } ],
             frameRate: 0
         });
     
         this.anims.create({
-            key: 'Nerudoright',
-            frames: this.anims.generateFrameNumbers('nerudo', { start: 0, end: 3}),
+            key: 'Inimigoright',
+            frames: this.anims.generateFrameNumbers('inimigo', { start: 0, end: 3}),
             frameRate: 10,
             repeat: -1
         });  
@@ -356,14 +358,14 @@ var Principal = new Phaser.Class({
 function collectVida(vida){
 
     vida.disableBody(true, true);
-    atualVidas = atualVidas + 1;
+    atualVidas = atualVidas + 2;
 
 }
 
 function collectCartucho(cartucho){
 
     cartucho.disableBody(true, true);
-    tiro = tiro + 12;
+    tiro = tiro + 15;
 }
 
 
@@ -375,6 +377,13 @@ function balaChefao1(bala, bala1){
     score = score + 10;
     bala.destroy(); 
     
+}
+
+function bala1Barreira(bala1){
+    
+    bala1.setVisible(false);
+    bala1.setActive(false);
+    bala1.body.enable = false;    
 }
 
 
@@ -436,6 +445,7 @@ function deathPlayerChefao1 (bala1, player){
 
 }
 
+
 function deathNerudo(bala, enemiesGroup){
     
     enemiesGroup.setVisible(false);
@@ -458,6 +468,8 @@ function chefao1Atira(){
     bala1 = this.physics.add.sprite(chefao1.x-96, chefao1.y-10, 'tigre').setVelocityX(-200);
     this.physics.add.collider(bala1, collider);
     this.physics.add.collider(bala1, player, deathPlayerChefao1, null, this);
+    this.physics.add.collider(bala1, barreira, bala1Barreira, null, this);
+
 }
 
 const config = {
