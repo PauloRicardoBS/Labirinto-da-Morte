@@ -1,8 +1,8 @@
 import Enemies from "./Enemies.js";
 
-var player, tempo, chefao1, chefao1Vida = 10, chefao2Vida = 20, chefao3Vida = 30, bala, bala1, shoot, graphics, cursors, collider, camera, enemies, 
-    playerPodeAtirar = 1, textTela, tiro = 1000, tileset, groud, groud2, 
-    map, vidaGroup, maxVidas = 10, atualVidas = 4, enter, butao, texto, Nerudo;
+var player, score = 0, tempo, chefao1, chefao1Vida = 10, chefao2Vida = 20, chefao3Vida = 30, bala, bala1, 
+    graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 1000, 
+    tileset, groud, groud2, map, atualVidas = 34, enter, butao, texto, Nerudo;
 
 var Menu = new Phaser.Class({
     Extends: Phaser.Scene,
@@ -60,6 +60,7 @@ var Principal = new Phaser.Class({
         this.load.image('tigre', "img/tigre_gelo.png");
         this.load.image('deserto', "img/deserto.png");
         this.load.image('fase3', "img/fase3.png");
+        this.load.image('cartucho', "img/star.png");        
         this.load.image('ceu', "img/céu estrelado.png");
         this.load.audio('gun', 'sons/gun.wav');
         this.load.audio('pulo', 'sons/pulo.mp3');        
@@ -88,28 +89,48 @@ var Principal = new Phaser.Class({
         this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);
         
         //Vidas no jogo
-        
-        var vida = this.physics.add.staticImage(2300, 1300, 'vida').refreshBody();
-        var vida1 = this.physics.add.staticImage(500, 2000, 'vida').refreshBody();
+        var vida = this.physics.add.staticImage(2300, 1300,  'vida').refreshBody();
+        var vida1 = this.physics.add.staticImage(500, 2000,  'vida').refreshBody();
         var vida2 = this.physics.add.staticImage(3000, 2250, 'vida').refreshBody();
+        var vida3 = this.physics.add.staticImage(77, 851,    'vida').refreshBody();
+        var vida4 = this.physics.add.staticImage(2129, 1230, 'vida').refreshBody();
+        var vida5 = this.physics.add.staticImage(3010, 106,  'vida').refreshBody();
+        var vida6 = this.physics.add.staticImage(151, 2927,  'vida').refreshBody();
+
+        //Cartuchos de balas
+
+        var cartucho1 = this.physics.add.staticImage(1807, 894,  'cartucho').refreshBody();
+        var cartucho2 = this.physics.add.staticImage(2070, 264,  'cartucho').refreshBody();
+        var cartucho3 = this.physics.add.staticImage(78, 2915,  'cartucho').refreshBody();
+        var cartucho4 = this.physics.add.staticImage(1106, 2893,  'cartucho').refreshBody();
+        var cartucho5 = this.physics.add.staticImage(924, 2333,  'cartucho').refreshBody();
+        var cartucho6 = this.physics.add.staticImage(2290, 2272,  'cartucho').refreshBody();
+        var cartucho7 = this.physics.add.staticImage(2744, 1989,  'cartucho').refreshBody();
+        var cartucho8 = this.physics.add.staticImage(1959, 1532,  'cartucho').refreshBody();
+        var cartucho9 = this.physics.add.staticImage(2814, 1356,  'cartucho').refreshBody();
+        var cartucho0 = this.physics.add.staticImage(2399, 1226,  'cartucho').refreshBody();
         
-        player = this.physics.add.sprite(89, 212, 'paul');
+        player = this.physics.add.sprite(75, 2915, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2250 , 'chefe1').refreshBody();
         groud2 = map.createStaticLayer("groud2", tileset, 0, 0);
         cursors = this.input.keyboard.createCursorKeys();
         collider = map.createStaticLayer("colisao", tileset, 0, 0);
-        collider.setCollisionByProperty({"colisao": true});   
+        collider.setCollisionByProperty({"colisao": true});         
         this.physics.add.collider(player, collider);
         player.setCollideWorldBounds(true);
         this.physics.add.collider(chefao1, collider);
-        this.physics.add.collider(player, vida, collectVida, null, this);
-        this.physics.add.collider(player, vida1, collectVida, null, this);
-        this.physics.add.collider(player, vida2, collectVida, null, this);        
+        this.physics.add.collider(vida, player, collectVida, null, this);
+        this.physics.add.collider(vida1, player, collectVida, null, this);
+        this.physics.add.collider(vida2, player, collectVida, null, this);
+        this.physics.add.collider(vida3, player, collectVida, null, this);
+        this.physics.add.collider(vida4, player, collectVida, null, this);
+        this.physics.add.collider(vida5, player, collectVida, null, this);  
+        this.physics.add.collider(vida6, player, collectVida, null, this);      
 
         this.physics.add.collider(player, this.enemiesGroup, deathPlayer, null, this);
         this.physics.add.collider(player, chefao1, morteSubita, null, this);
         this.physics.add.collider(this.enemiesGroup, collider);
-        
+            
         // sons
         this.gun = this.sound.add('gun', {loop : false });
         this.pulo = this.sound.add('pulo', { loop : false});
@@ -187,13 +208,7 @@ var Principal = new Phaser.Class({
             graphics = this.add.graphics().setScrollFactor(0);
             graphics.lineStyle(2, 0x00ff00, 1);
             graphics.strokeRect(200, 200, this.cameras.main.deadzone.width, this.cameras.main.deadzone.height);      
-        }
-
-
-
-        //Colisão para ganhar uma vida
-
-        
+        }    
         
 
     },
@@ -231,6 +246,8 @@ var Principal = new Phaser.Class({
             
             this.physics.add.collider(bala, collider, destroyBala);
             this.physics.add.collider(bala, this.enemiesGroup, deathNerudo, null, this);
+            this.physics.add.collider(bala, chefao1, deathChefao1, null, this);
+            this.physics.add.collider(bala, bala1, balaChefao1, null, this);
             bala.setCollideWorldBounds(true);                  
 
         }
@@ -283,20 +300,26 @@ var Principal = new Phaser.Class({
         {
             if(chefao1Vida > 0){
                 textTela.setText([
-                    'Qtd Balas: ' + tiro + '\n' + 'Vidas: ' + atualVidas,
+                    'Qtd Balas: ' + tiro,
+                    'Vidas: ' + atualVidas,
+                    'Score: ' + score,
                     'Chefão1: ' + chefao1Vida]);
                 } 
 
             else if(chefao2Vida > 0){
                 textTela.setText([
-                    'Qtd Balas: ' + tiro + '\n' + 'Vidas: ' + atualVidas,
+                    'Qtd Balas: ' + tiro,
+                    'Vidas: ' + atualVidas,
+                    'Score: ' + score,
                     'Chefão2: ' + chefao2Vida]);
                 }
             
             else{
 
                 textTela.setText([
-                    'Qtd Balas: ' + tiro + '\n' + 'Vidas: ' + atualVidas,
+                    'Qtd Balas: ' + tiro,
+                    'Vidas: ' + atualVidas,
+                    'Score: ' + score,
                     'Chefão3: ' + chefao3Vida]);
             }
 
@@ -313,31 +336,24 @@ var Principal = new Phaser.Class({
     }
 });
 
-function collectVida(player, vida){
+function collectVida(vida){
 
     vida.disableBody(true, true);
     atualVidas = atualVidas + 1;
 
 }
 
+
 function balaChefao1(bala, bala1){
     
     bala1.setVisible(false);
     bala1.setActive(false);
     bala1.body.enable = false;
+    score = score + 10;
     bala.destroy(); 
     
 }
 
-function chefao1Atira(){
-
-    bala1 = this.physics.add.sprite(chefao1.x-96, chefao1.y-10, 'tigre');
-    bala1.setVelocityX(-200);
-    this.physics.add.collider(bala1, collider);
-    this.physics.add.collider(bala1, player, deathPlayerChefao1, null, this);
-    bala1.setCollideWorldBounds(true); 
-
-}
 
 function morteSubita (player){
     
@@ -402,6 +418,7 @@ function deathNerudo(bala, enemiesGroup){
     enemiesGroup.setVisible(false);
     enemiesGroup.setActive(false);
     enemiesGroup.body.enable = false;
+    score = score + 10
     bala.destroy(); 
     
 }
@@ -410,6 +427,14 @@ function destroyBala(bala){
 
     bala.destroy();
 
+}
+
+
+function chefao1Atira(){
+
+    bala1 = this.physics.add.sprite(chefao1.x-96, chefao1.y-10, 'tigre').setVelocityX(-200);
+    this.physics.add.collider(bala1, collider);
+    this.physics.add.collider(bala1, player, deathPlayerChefao1, null, this);
 }
 
 const config = {
