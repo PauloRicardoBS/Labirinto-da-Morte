@@ -1,7 +1,7 @@
 import Enemies from "./Enemies.js";
 
 var player, score = 0, tempo, chefao1, barreira, chefao1Vida = 10, chefao2Vida = 20, chefao3Vida = 30, bala, bala1, 
-    graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 10, 
+    graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 35, 
     tileset, groud, groud2, map, atualVidas = 5, enter, butao, texto, Nerudo;
 
 var Menu = new Phaser.Class({
@@ -70,10 +70,11 @@ var Principal = new Phaser.Class({
     create(){
 
         tempo = this.time.addEvent({
-            delay: 2000, 
+            delay: 3000, 
             callback: chefao1Atira,
             loop: true, 
-            callbackScope: this});
+            callbackScope: this,
+            hasDispatched : true});
 
         //imagens e mapa  
         this.add.image(1602, 576, 'fase3');
@@ -99,7 +100,6 @@ var Principal = new Phaser.Class({
         var vida6 = this.physics.add.staticImage(151, 2927,  'vida').refreshBody();
 
         //Cartuchos de balas
-
         var cartucho1 = this.physics.add.staticImage(1807, 894,  'cartucho').refreshBody();
         var cartucho2 = this.physics.add.staticImage(2070, 264,  'cartucho').refreshBody();
         var cartucho3 = this.physics.add.staticImage(78, 2915,   'cartucho').refreshBody();
@@ -109,11 +109,17 @@ var Principal = new Phaser.Class({
         var cartucho7 = this.physics.add.staticImage(2744, 1989,  'cartucho').refreshBody();
         var cartucho8 = this.physics.add.staticImage(1959, 1532,  'cartucho').refreshBody();
         var cartucho9 = this.physics.add.staticImage(2814, 1356,  'cartucho').refreshBody();
-        var cartucho0 = this.physics.add.staticImage(2399, 1226,  'cartucho').refreshBody();
+        var cartucho10 = this.physics.add.staticImage(2399, 1226,  'cartucho').refreshBody();
+        var cartucho11 = this.physics.add.staticImage(1383, 227,  'cartucho').refreshBody();
+        var cartucho12 = this.physics.add.staticImage(2707, 106,  'cartucho').refreshBody();
+        var cartucho13 = this.physics.add.staticImage(1608, 495,  'cartucho').refreshBody();
+        var cartucho14 = this.physics.add.staticImage(1873, 906,  'cartucho').refreshBody();
+        var cartucho15 = this.physics.add.staticImage(2649, 1195,  'cartucho').refreshBody();
+        var cartucho16 = this.physics.add.staticImage(2860, 1060,  'cartucho').refreshBody();
         
-        player = this.physics.add.sprite(75, 2915, 'paul');
+        player = this.physics.add.sprite(400, 2876, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2250 , 'chefe1').refreshBody();
-        barreira = this.physics.add.staticImage(1429, 2276, 'barreira').refreshBody();
+        barreira = this.physics.add.staticImage(1990, 2276, 'barreira').refreshBody();
         groud2 = map.createStaticLayer("groud2", tileset, 0, 0);
         cursors = this.input.keyboard.createCursorKeys();
         collider = map.createStaticLayer("colisao", tileset, 0, 0);
@@ -142,9 +148,14 @@ var Principal = new Phaser.Class({
         this.physics.add.collider(cartucho7,  player, collectCartucho, null, this);
         this.physics.add.collider(cartucho8,  player, collectCartucho, null, this);
         this.physics.add.collider(cartucho9,  player, collectCartucho, null, this);
-        this.physics.add.collider(cartucho0,  player, collectCartucho, null, this);
-
-        
+        this.physics.add.collider(cartucho10, player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho11, player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho12, player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho13, player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho14, player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho15, player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho16, player, collectCartucho, null, this);
+       
 
         this.physics.add.collider(player, this.enemiesGroup, deathPlayer, null, this);
         this.physics.add.collider(player, chefao1, morteSubita, null, this);
@@ -212,13 +223,12 @@ var Principal = new Phaser.Class({
             frameRate: 10
         });
 
-
         //Acompanhando o placar e a tela
         textTela = this.add.text(20, 0,'0', {
-            fontFamily: 'Verdana',
+            fontFamily: 'Arial',
             fontSize: '22px',
             backgroundColor: 'rgba(0.1, 0.4, 0.4, 0.4)',
-            fill: 'yellow'
+            fill: 'Yellow'
     
 
         }).setScrollFactor(0);
@@ -227,8 +237,7 @@ var Principal = new Phaser.Class({
             graphics = this.add.graphics().setScrollFactor(0);
             graphics.lineStyle(2, 0x00ff00, 1);
             graphics.strokeRect(200, 200, this.cameras.main.deadzone.width, this.cameras.main.deadzone.height);      
-        }    
-        
+        }       
 
     },
 
@@ -349,9 +358,6 @@ var Principal = new Phaser.Class({
         if(cursors.space.isUp && tiro > 0){
             playerPodeAtirar = 1;
         }
-
-        
-    
     }
 });
 
@@ -359,7 +365,6 @@ function collectVida(vida){
 
     vida.disableBody(true, true);
     atualVidas = atualVidas + 2;
-
 }
 
 function collectCartucho(cartucho){
@@ -368,7 +373,6 @@ function collectCartucho(cartucho){
     tiro = tiro + 15;
 }
 
-
 function balaChefao1(bala, bala1){
     
     bala1.setVisible(false);
@@ -376,7 +380,6 @@ function balaChefao1(bala, bala1){
     bala1.body.enable = false;
     score = score + 10;
     bala.destroy(); 
-    
 }
 
 function bala1Barreira(bala1){
@@ -386,13 +389,11 @@ function bala1Barreira(bala1){
     bala1.body.enable = false;    
 }
 
-
 function morteSubita (player){
     
     player.setTint(0x1E90FF);
     this.physics.pause();
     player.anims.play('turn');  
-
 }
 
 function deathPlayer (player, enemiesGroup){
@@ -414,7 +415,16 @@ function deathChefao1(bala, chefao1){
   
     chefao1Vida = chefao1Vida - 1;
     bala.destroy();
-    
+
+    if (chefao1Vida <= 6){
+
+        chefao1.setTint(0xffA500);        
+    }
+
+    if (chefao1Vida <= 3){
+
+        chefao1.setTint(0xff0000);        
+    }
                             
     if (chefao1Vida == 0){
 
@@ -423,9 +433,8 @@ function deathChefao1(bala, chefao1){
         chefao1.body.enable = false;
         tempo.remove(false);
         chefao1.destroy();
+        score = score + 100;
     }
-    
-    
 }
 
 function deathPlayerChefao1 (bala1, player){
@@ -440,11 +449,8 @@ function deathPlayerChefao1 (bala1, player){
         player.setTint(0x1E90FF);
         this.physics.pause();
         player.anims.play('turn');
-
     }  
-
 }
-
 
 function deathNerudo(bala, enemiesGroup){
     
@@ -452,24 +458,20 @@ function deathNerudo(bala, enemiesGroup){
     enemiesGroup.setActive(false);
     enemiesGroup.body.enable = false;
     score = score + 10
-    bala.destroy(); 
-    
+    bala.destroy();  
 }
 
 function destroyBala(bala){
 
     bala.destroy();
-
 }
-
 
 function chefao1Atira(){
 
-    bala1 = this.physics.add.sprite(chefao1.x-96, chefao1.y-10, 'tigre').setVelocityX(-200);
+    bala1 = this.physics.add.sprite(chefao1.x-96, chefao1.y-10, 'tigre').setVelocityX(-300);
     this.physics.add.collider(bala1, collider);
     this.physics.add.collider(bala1, player, deathPlayerChefao1, null, this);
     this.physics.add.collider(bala1, barreira, bala1Barreira, null, this);
-
 }
 
 const config = {
