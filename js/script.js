@@ -2,32 +2,43 @@ import Enemies from "./Enemies.js";
 
 var player, score = 0, tempo, chefao1, barreira, chefao1Vida = 10, chefao2Vida = 20, chefao3Vida = 30, bala, bala1, 
     graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 35, 
-    tileset, groud, groud2, map, atualVidas = 5, enter, butao, texto, Nerudo;
+    tileset, groud, groud2, map, atualVidas = 5, enter, botaoPlay, botaoDescricao, botaoVoltar, texto, Nerudo;
 
 var Menu = new Phaser.Class({
     Extends: Phaser.Scene,
     initialize:
         function Menu(){
-            Phaser.Scene.call(this, {key: ''});
+            Phaser.Scene.call(this, {key: 'Menu'});
         },
     
     preload(){
         this.load.image('menuPlay', 'img/Menu_back.png');
-        this.load.image('butao', 'img/button.png');          
+        this.load.image('botao', 'img/button.png');          
     }, 
     
     create(){
         this.add.image(500, 400, 'menuPlay');
-        butao = this.add.image(510, 385, 'butao').setInteractive();
+        botaoPlay = this.add.image(510, 385, 'botao').setInteractive();
+        botaoDescricao = this.add.image(510, 500, 'botao').setInteractive();
         
-        texto = this.add.text(game.config.width / 2, game.config.height / 2, 'Play',
+        texto = this.add.text(game.config.width /2, game.config.height / 2, 'PLAY',
         {fontSize:'40px', fill:"red"
         }).setOrigin(0.5);
 
-        butao.on('pointerdown',() => {
+        texto = this.add.text(game.config.width / 2.01, game.config.height / 1.55, 'Regras',
+        {fontSize:'40px', fill:"white"
+        }).setOrigin(0.5);
+
+        botaoPlay.on('pointerdown',() => {
             this.scene.start('Principal');
 
         });
+
+        botaoDescricao.on('pointerdown',() => {
+            this.scene.start('Regras');
+
+        });
+
         enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     },
 
@@ -35,6 +46,36 @@ var Menu = new Phaser.Class({
         if(enter.isDown){
             this.scene.start('Principal');
         }
+    }
+})
+
+var Regras = new Phaser.Class({
+    Extends: Phaser.Scene,
+    initialize:
+        function Regras(){
+            Phaser.Scene.call(this, {key: 'Regras'});
+        },
+    
+    preload(){
+        this.load.image('menuPlay', 'img/Menu_back.png');    
+    }, 
+    
+    create(){
+
+        this.add.image(500, 400, 'menuPlay');
+        botaoVoltar = this.add.image(510, 385, 'botao').setInteractive();
+
+        texto = this.add.text(game.config.width /2, game.config.height / 2, 'Voltar',
+        {fontSize:'40px', fill:"red"
+        }).setOrigin(0.5);
+
+        botaoVoltar.on('pointerdown',() => {
+            this.scene.start('Menu');
+        });         
+    },
+
+    update(){
+        
     }
 })
 
@@ -91,13 +132,14 @@ var Principal = new Phaser.Class({
         this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);
         
         //Vidas no jogo
-        var vida = this.physics.add.staticImage(2300, 1300,  'vida').refreshBody();
+        var vida0 = this.physics.add.staticImage(2300, 1300,  'vida').refreshBody();
         var vida1 = this.physics.add.staticImage(500, 2000,  'vida').refreshBody();
         var vida2 = this.physics.add.staticImage(3000, 2250, 'vida').refreshBody();
         var vida3 = this.physics.add.staticImage(77, 851,    'vida').refreshBody();
         var vida4 = this.physics.add.staticImage(2129, 1230, 'vida').refreshBody();
         var vida5 = this.physics.add.staticImage(3010, 106,  'vida').refreshBody();
         var vida6 = this.physics.add.staticImage(151, 2927,  'vida').refreshBody();
+        var vida7 = this.physics.add.staticImage(2562, 2524,  'vida').refreshBody();
 
         //Cartuchos de balas
         var cartucho1 = this.physics.add.staticImage(1807, 894,  'cartucho').refreshBody();
@@ -116,6 +158,7 @@ var Principal = new Phaser.Class({
         var cartucho14 = this.physics.add.staticImage(1873, 906,  'cartucho').refreshBody();
         var cartucho15 = this.physics.add.staticImage(2649, 1195,  'cartucho').refreshBody();
         var cartucho16 = this.physics.add.staticImage(2860, 1060,  'cartucho').refreshBody();
+        var cartucho17 = this.physics.add.staticImage(2910, 2558,  'cartucho').refreshBody();
         
         player = this.physics.add.sprite(400, 2876, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2250 , 'chefe1').refreshBody();
@@ -130,13 +173,14 @@ var Principal = new Phaser.Class({
         this.physics.add.collider(barreira, collider);
 
         //Coletando as vidas
-        this.physics.add.collider(vida,  player, collectVida, null, this);
+        this.physics.add.collider(vida0,  player, collectVida, null, this);
         this.physics.add.collider(vida1, player, collectVida, null, this);
         this.physics.add.collider(vida2, player, collectVida, null, this);
         this.physics.add.collider(vida3, player, collectVida, null, this);
         this.physics.add.collider(vida4, player, collectVida, null, this);
         this.physics.add.collider(vida5, player, collectVida, null, this);  
-        this.physics.add.collider(vida6, player, collectVida, null, this);  
+        this.physics.add.collider(vida6, player, collectVida, null, this);
+        this.physics.add.collider(vida7, player, collectVida, null, this)  
         
         //Coletando os cartuchos
         this.physics.add.collider(cartucho1,  player, collectCartucho, null, this);
@@ -155,6 +199,7 @@ var Principal = new Phaser.Class({
         this.physics.add.collider(cartucho14, player, collectCartucho, null, this);
         this.physics.add.collider(cartucho15, player, collectCartucho, null, this);
         this.physics.add.collider(cartucho16, player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho17, player, collectCartucho, null, this);
        
 
         this.physics.add.collider(player, this.enemiesGroup, deathPlayer, null, this);
@@ -484,7 +529,7 @@ const config = {
             debug: false
         }
     },
-    scene:[Menu,Principal],
+    scene:[Menu, Principal, Regras],
 
     audio: {
         disableWebAudio: true
