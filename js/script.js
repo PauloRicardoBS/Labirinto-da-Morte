@@ -13,7 +13,7 @@ var Menu = new Phaser.Class({
         },
     
     preload(){
-        this.load.image('menuPlay', 'img/Menu_back.png');
+        this.load.image('menuPlay', 'img/Menu_Inicial.png');
         this.load.image('botao', 'img/button.png');          
     }, 
     
