@@ -21,7 +21,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite{
 
     move(){
               
-        const randNumber = Math.floor(Math.random()*6);
+        const randNumber = Math.floor(Math.random()*7);
 
 
         switch (randNumber){
@@ -29,25 +29,37 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite{
             case 1:
                 
                 this.anims.play('Inimigoright', true);
-                this.setVelocityX(230);
+                this.setVelocityX(200);
                 break
 
             case 2:
 
                 this.anims.play('Inimigoleft', true);
-                this.setVelocityX(-230);
+                this.setVelocityX(-200);
                 break
 
             case 3:
                 
                 this.anims.play('Bolaturn', true);
-                this.setVelocityX(450);
+                this.setVelocityX(400);
                 break
 
             case 4:
                 
                 this.anims.play('Bolaturn', true);
-                this.setVelocityX(-450);
+                this.setVelocityX(-400);
+                break
+
+            case 5:
+                
+                this.anims.play('Bolaturn', true);
+                this.setVelocityX(400);
+                break
+
+            case 6:
+                
+                this.anims.play('Bolaturn', true);
+                this.setVelocityX(-400);
                 break
             
             default:

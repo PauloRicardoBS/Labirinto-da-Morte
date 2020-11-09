@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="143">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="149">
  <editorsettings>
   <export target="Labirinto da Morte.json" format="json"/>
  </editorsettings>
@@ -9954,7 +9954,7 @@
   <object id="22" name="inimigo" type="inimigo" x="1184.85" y="2712.12">
    <point/>
   </object>
-  <object id="23" name="inimigo" type="inimigo" x="693.939" y="2321.21">
+  <object id="23" name="inimigo" type="inimigo" x="624.939" y="2340.21">
    <point/>
   </object>
   <object id="27" name="inimigo" type="inimigo" x="2359.7" y="2272">
@@ -9963,10 +9963,10 @@
   <object id="28" name="inimigo" type="inimigo" x="2707" y="2278">
    <point/>
   </object>
-  <object id="29" name="inimigo" type="inimigo" x="1363" y="2264">
+  <object id="29" name="inimigo" type="inimigo" x="1245" y="2275">
    <point/>
   </object>
-  <object id="32" name="inimigo" type="inimigo" x="2022" y="2278">
+  <object id="32" name="inimigo" type="inimigo" x="1914" y="2274">
    <point/>
   </object>
   <object id="33" name="inimigo" type="inimigo" x="2835.21" y="1993">
@@ -10062,7 +10062,7 @@
   <object id="63" name="inimigo" type="inimigo" x="1533" y="2704">
    <point/>
   </object>
-  <object id="64" name="inimigo" type="inimigo" x="223" y="2726">
+  <object id="64" name="inimigo" type="inimigo" x="127" y="2720">
    <point/>
   </object>
   <object id="70" name="inimigo" type="inimigo" x="151" y="2927">
@@ -10179,10 +10179,10 @@
   <object id="113" name="inimigo" type="inimigo" x="2924" y="3120">
    <point/>
   </object>
-  <object id="115" name="inimigo" type="inimigo" x="470" y="2290">
+  <object id="115" name="inimigo" type="inimigo" x="378" y="2348">
    <point/>
   </object>
-  <object id="116" name="inimigo" type="inimigo" x="920" y="2302">
+  <object id="116" name="inimigo" type="inimigo" x="947" y="2345">
    <point/>
   </object>
   <object id="117" name="inimigo" type="inimigo" x="2481.33" y="1765.33">
@@ -10255,6 +10255,24 @@
    <point/>
   </object>
   <object id="142" name="inimigo" type="inimigo" x="1936" y="1775">
+   <point/>
+  </object>
+  <object id="143" name="inimigo" type="inimigo" x="328" y="2731">
+   <point/>
+  </object>
+  <object id="144" name="inimigo" type="inimigo" x="590" y="2721">
+   <point/>
+  </object>
+  <object id="145" name="inimigo" type="inimigo" x="869" y="2508">
+   <point/>
+  </object>
+  <object id="146" name="inimigo" type="inimigo" x="820" y="2352">
+   <point/>
+  </object>
+  <object id="147" name="inimigo" type="inimigo" x="1468" y="2283">
+   <point/>
+  </object>
+  <object id="148" name="inimigo" type="inimigo" x="2127" y="2266">
    <point/>
   </object>
  </objectgroup>

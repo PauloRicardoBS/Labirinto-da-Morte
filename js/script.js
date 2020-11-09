@@ -221,6 +221,9 @@ var Principal = new Phaser.Class({
         var cartucho15 = this.physics.add.staticImage(2649, 1195,  'cartucho').refreshBody();
         var cartucho16 = this.physics.add.staticImage(2860, 1060,  'cartucho').refreshBody();
         var cartucho17 = this.physics.add.staticImage(2910, 2558,  'cartucho').refreshBody();
+        var cartucho18 = this.physics.add.staticImage(223, 2726,  'cartucho').refreshBody();
+        var cartucho19 = this.physics.add.staticImage(93, 2735,  'cartucho').refreshBody();
+        var cartucho20 = this.physics.add.staticImage(592, 2732,  'cartucho').refreshBody();
         
         player = this.physics.add.sprite(310, 2980, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2256 , 'chefe1').refreshBody();
@@ -266,6 +269,9 @@ var Principal = new Phaser.Class({
         this.physics.add.collider(cartucho15, player, collectCartucho, null, this);
         this.physics.add.collider(cartucho16, player, collectCartucho, null, this);
         this.physics.add.collider(cartucho17, player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho18, player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho19, player, collectCartucho, null, this);
+        this.physics.add.collider(cartucho20, player, collectCartucho, null, this);
        
 
         this.physics.add.collider(player, this.enemiesGroup, deathPlayer, null, this);
