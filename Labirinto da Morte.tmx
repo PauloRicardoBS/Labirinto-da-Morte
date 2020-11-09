@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="119">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="120">
  <editorsettings>
   <export target="Labirinto da Morte.json" format="json"/>
  </editorsettings>
@@ -10184,6 +10184,11 @@
    <point/>
   </object>
   <object id="118" name="inimigo" type="inimigo" x="2282.67" y="1762.67">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="20" name="chefao2">
+  <object id="119" name="chefao2" type="chefao2" x="372" y="974.663">
    <point/>
   </object>
  </objectgroup>

@@ -1126,9 +1126,32 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":20,
+         "name":"chefao2",
+         "objects":[
+                {
+                 "height":0,
+                 "id":119,
+                 "name":"chefao2",
+                 "point":true,
+                 "rotation":0,
+                 "type":"chefao2",
+                 "visible":true,
+                 "width":0,
+                 "x":372,
+                 "y":974.663333333333
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":20,
- "nextobjectid":119,
+ "nextlayerid":21,
+ "nextobjectid":120,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",
