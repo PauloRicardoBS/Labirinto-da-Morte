@@ -6,7 +6,6 @@ export default class Chefaos2 extends Phaser.Physics.Arcade.Group{
 
         super(world, scene, children, {})
         this.scene = scene
-
         this.createChefaos2(scene, spriteArray)
 
     };
@@ -15,8 +14,7 @@ export default class Chefaos2 extends Phaser.Physics.Arcade.Group{
 
         spriteArray.forEach(sprite => {
             const chefao2 = new Chefao2(scene, sprite.x, sprite.y)
-            this.add(chefao2)
-            
+            this.add(chefao2)   
             sprite.destroy()
         });
     }

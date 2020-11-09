@@ -66,7 +66,7 @@ var Regras = new Phaser.Class({
         this.add.image(500, 400, 'regras');
         botaoVoltar = this.add.image(910, 645, 'botao').setInteractive();
 
-        texto = this.add.text(game.config.width /1.12, game.config.height /1.19, 'Voltar',
+        texto = this.add.text(game.config.width /1.12, game.config.height /1.19, 'Menu',
         {fontSize:'40px', fill:"red"
         }).setOrigin(0.5);
 
@@ -78,6 +78,41 @@ var Regras = new Phaser.Class({
     update(){
         
     }
+
+    
+})
+
+
+var GameOver = new Phaser.Class({
+    Extends: Phaser.Scene,
+    initialize:
+        function Regras(){
+            Phaser.Scene.call(this, {key: 'GameOver'});
+        },
+    
+    preload(){
+        this.load.image('Gover', 'img/game-over.jpg');    
+    }, 
+    
+    create(){
+
+        this.add.image(500, 400, 'Gover');
+        botaoVoltar = this.add.image(910, 645, 'botao').setInteractive();
+
+        texto = this.add.text(game.config.width /1.12, game.config.height /1.19, 'Menu',
+        {fontSize:'40px', fill:"red"
+        }).setOrigin(0.5);
+
+        botaoVoltar.on('pointerdown',() => {
+            this.scene.start('Menu');
+        });         
+    },
+
+    update(){
+        
+    }
+
+    
 })
 
 var Principal = new Phaser.Class({
@@ -96,9 +131,9 @@ var Principal = new Phaser.Class({
         this.load.tilemapTiledJSON("map", "Labirinto da Morte.json");
         this.load.spritesheet('paul', "img/player2.png", {frameWidth: 49, frameHeight: 48});
         this.load.spritesheet('inimigo', 'img/personagens/inimigo.png', {frameWidth: 48, frameHeight: 48});
-        this.load.spritesheet('golem', 'img/golem_pedra.png', {frameWidth: 98, frameHeight: 98});
+        this.load.spritesheet('golem', 'img/golem_pedra.png', {frameWidth: 100, frameHeight: 105});
         this.load.image('chefe1', 'img/personagens/chefão01.png');
-        this.load.spritesheet('fogoCanhao', 'img/fogo_canhao.png',{frameWidth: 49, frameHeight: 48});
+        //this.load.spritesheet('fogoCanhao', 'img/fogo_canhao.png',{frameWidth: 49, frameHeight: 48});
         this.load.image('barreira', 'img/barreira.png');
         this.load.image('bala', "img/bala.png");
         this.load.image('bola_fogo', "img/bola_fogo.png");
@@ -119,11 +154,14 @@ var Principal = new Phaser.Class({
     create(){
 
         tempo = this.time.addEvent({
-            delay: 3000, 
+            delay: 2000, 
             callback: chefao1Atira,
             loop: true, 
             callbackScope: this,
-            hasDispatched : true});
+            hasDispatched : true
+        });
+        
+        
 
         //imagens e mapa  
         this.add.image(1602, 576, 'fase3');
@@ -138,8 +176,9 @@ var Principal = new Phaser.Class({
         //Player e colisões
         this.enemies = map.createFromObjects("inimigo", "inimigo", {});
         this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);
-        this.chefaos2 = map.createFromObjects("chefao2", "chefao2", {});
-        this.chefaos2Group = new Chefaos2(this.physics.world, this, [], this.chefaos2);
+
+        //this.chefaos2 = map.createFromObjects("chefao2", "chefao2", {});
+        //this.chefaos2Group = new Chefaos2(this.physics.world, this, [], this.chefaos2);
         
         //Vidas no jogo
         var vida0 = this.physics.add.staticImage(2300, 1300,  'vida').refreshBody();
@@ -170,9 +209,9 @@ var Principal = new Phaser.Class({
         var cartucho16 = this.physics.add.staticImage(2860, 1060,  'cartucho').refreshBody();
         var cartucho17 = this.physics.add.staticImage(2910, 2558,  'cartucho').refreshBody();
         
-        player = this.physics.add.sprite(1089, 1196, 'paul');
+        player = this.physics.add.sprite(2489, 2196, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2256 , 'chefe1').refreshBody();
-        fogoCanhao = this.physics.add.sprite(2950, 2256, 'fogoCanhao');
+        //fogoCanhao = this.physics.add.sprite(2950, 2256, 'fogoCanhao');
         barreira = this.physics.add.staticImage(1990, 2276, 'barreira').refreshBody();
         groud2 = map.createStaticLayer("groud2", tileset, 0, 0);
         cursors = this.input.keyboard.createCursorKeys();
@@ -216,7 +255,7 @@ var Principal = new Phaser.Class({
         this.physics.add.collider(player, this.enemiesGroup, deathPlayer, null, this);
         this.physics.add.collider(player, chefao1, morteSubita, null, this);
         this.physics.add.collider(this.enemiesGroup, collider);
-        this.physics.add.collider(this.chefaos2Group, collider);
+       // this.physics.add.collider(this.chefaos2Group, collider);
             
         // sons
         this.gun = this.sound.add('gun', {loop : false });
@@ -280,14 +319,14 @@ var Principal = new Phaser.Class({
 
         this.anims.create({
             key: 'Golemleft',
-            frames: this.anims.generateFrameNumbers('golem', { start: 5, end: 9}),
+            frames: this.anims.generateFrameNumbers('golem', { start: 6, end: 9}),
             frameRate: 6,
             repeat: -1
         });
         
         this.anims.create({
             key: 'Golemturn',
-            frames: [ { key: 'golem', frame: 6 } ],
+            frames: [ { key: 'golem', frame: 9 } ],
             frameRate: 0
         });
     
@@ -480,6 +519,7 @@ function morteSubita (player){
     player.setTint(0x1E90FF);
     this.physics.pause();
     player.anims.play('turn');  
+    this.scene.start('GameOver');
 }
 
 function deathPlayer (player, enemiesGroup){
@@ -536,6 +576,7 @@ function deathPlayerChefao1 (bala1, player){
         player.setTint(0x1E90FF);
         this.physics.pause();
         player.anims.play('turn');
+        this.scene.start('GameOver');
     }  
 }
 
@@ -553,15 +594,13 @@ function destroyBala(bala){
     bala.destroy();
 }
 
-function chefao1Atira(){
+function chefao1Atira(){ 
 
     bala1 = this.physics.add.sprite(chefao1.x-76, chefao1.y-4, 'tigre').setVelocityX(-400);
     this.somChefao1.play();
     this.physics.add.collider(bala1, collider);
     this.physics.add.collider(bala1, player, deathPlayerChefao1, null, this);
-    this.physics.add.collider(bala1, barreira, bala1Barreira, null, this);
-    
-
+    this.physics.add.collider(bala1, barreira, bala1Barreira, null, this); 
     
 }
 
@@ -576,7 +615,7 @@ const config = {
             debug: false
         }
     },
-    scene:[Menu, Principal, Regras],
+    scene:[Menu, Principal, Regras, GameOver],
 
     audio: {
         disableWebAudio: true

@@ -9927,6 +9927,11 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="20" name="chefao2">
+  <object id="119" name="chefao2" type="chefao2" x="446.667" y="1210.66">
+   <point/>
+  </object>
+ </objectgroup>
  <objectgroup id="13" name="inimigo">
   <object id="11" name="inimigo" type="inimigo" x="2494" y="2822">
    <point/>
@@ -10184,11 +10189,6 @@
    <point/>
   </object>
   <object id="118" name="inimigo" type="inimigo" x="2282.67" y="1762.67">
-   <point/>
-  </object>
- </objectgroup>
- <objectgroup id="20" name="chefao2">
-  <object id="119" name="chefao2" type="chefao2" x="372" y="974.663">
    <point/>
   </object>
  </objectgroup>

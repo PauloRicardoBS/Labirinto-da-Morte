@@ -20,7 +20,7 @@ export default class Chefao2 extends Phaser.Physics.Arcade.Sprite{
 
     mover(){
               
-        const escNumber = Math.floor(Math.random()*2);
+        const escNumber = Math.floor(Math.random()*6);
 
 
         switch (escNumber){
@@ -37,12 +37,7 @@ export default class Chefao2 extends Phaser.Physics.Arcade.Sprite{
                 this.setVelocityX(-200);
                 break
             
-            default:
-
-                this.anims.play('Golemturn');
-                this.setVelocityX(0);
-                break
-            
+           
         }
 
     

@@ -21,7 +21,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite{
 
     move(){
               
-        const randNumber = Math.floor(Math.random()*5);
+        const randNumber = Math.floor(Math.random()*6);
 
 
         switch (randNumber){
