@@ -222,7 +222,7 @@ var Principal = new Phaser.Class({
         var cartucho16 = this.physics.add.staticImage(2860, 1060,  'cartucho').refreshBody();
         var cartucho17 = this.physics.add.staticImage(2910, 2558,  'cartucho').refreshBody();
         
-        player = this.physics.add.sprite(810, 1180, 'paul');
+        player = this.physics.add.sprite(310, 2980, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2256 , 'chefe1').refreshBody();
         chefao2 = this.physics.add.staticImage(165, 1180 , 'chefe2').refreshBody();
         //fogoCanhao = this.physics.add.sprite(2950, 2256, 'fogoCanhao');
@@ -440,7 +440,9 @@ var Principal = new Phaser.Class({
             this.physics.add.collider(bala, collider, destroyBala);
             this.physics.add.collider(bala, this.enemiesGroup, deathNerudo, null, this);
             this.physics.add.collider(bala, chefao1, deathChefao1, null, this);
+            this.physics.add.collider(bala, chefao2, deathChefao2, null, this);
             this.physics.add.collider(bala, bala1, balaChefao1, null, this);
+            this.physics.add.collider(bala, bala2, balaChefao2, null, this);
             bala.setCollideWorldBounds(true); 
 
         }
