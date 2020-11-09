@@ -1,6 +1,6 @@
 import Enemies from "./Enemies.js";
 
-var player, score = 0, tempo, chefao1, barreira, chefao1Vida = 10, chefao2Vida = 20, chefao3Vida = 30, bala, bala1, 
+var player, score = 0, tempo, fogoCanhao, chefao1, barreira, chefao1Vida = 10, chefao2Vida = 20, chefao3Vida = 30, bala, bala1, 
     graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 35, 
     tileset, groud, groud2, map, atualVidas = 5, enter, botaoPlay, botaoDescricao, botaoVoltar, texto, Nerudo;
 
@@ -57,15 +57,15 @@ var Regras = new Phaser.Class({
         },
     
     preload(){
-        this.load.image('menuPlay', 'img/Menu_back.png');    
+        this.load.image('regras', 'img/regras.png');    
     }, 
     
     create(){
 
-        this.add.image(500, 400, 'menuPlay');
-        botaoVoltar = this.add.image(510, 385, 'botao').setInteractive();
+        this.add.image(500, 400, 'regras');
+        botaoVoltar = this.add.image(910, 645, 'botao').setInteractive();
 
-        texto = this.add.text(game.config.width /2, game.config.height / 2, 'Voltar',
+        texto = this.add.text(game.config.width /1.12, game.config.height /1.19, 'Voltar',
         {fontSize:'40px', fill:"red"
         }).setOrigin(0.5);
 
@@ -96,16 +96,21 @@ var Principal = new Phaser.Class({
         this.load.spritesheet('paul', "img/player2.png", {frameWidth: 49, frameHeight: 48});
         this.load.spritesheet('inimigo', 'img/personagens/inimigo.png', {frameWidth: 48, frameHeight: 48});
         this.load.image('chefe1', 'img/personagens/chefão01.png');
+        this.load.spritesheet('fogoCanhao', 'img/fogo_canhao.png',{frameWidth: 49, frameHeight: 48});
         this.load.image('barreira', 'img/barreira.png');
         this.load.image('bala', "img/bala.png");
         this.load.image('bola_fogo', "img/bola_fogo.png");
-        this.load.image('tigre', "img/tigre_gelo.png");
+        this.load.image('tigre', "img/bala_chefao1.png");
         this.load.image('deserto', "img/deserto.png");
         this.load.image('fase3', "img/fase3.png");
         this.load.image('cartucho', "img/cartucho.png");        
         this.load.image('ceu', "img/céu estrelado.png");
         this.load.audio('gun', 'sons/gun.wav');
-        this.load.audio('pulo', 'sons/pulo.mp3');        
+        this.load.audio('pulo', 'sons/pulo.mp3'); 
+        this.load.audio('somChefao1', 'sons/som_chefao1.mp3');
+        this.load.audio('pegarObjetos', 'sons/pegar_objetos.mp3'); 
+        this.load.audio('explosaoChefao1', 'sons/explosao_chefao1.mp3'); 
+               
     },
 
     create(){
@@ -160,8 +165,9 @@ var Principal = new Phaser.Class({
         var cartucho16 = this.physics.add.staticImage(2860, 1060,  'cartucho').refreshBody();
         var cartucho17 = this.physics.add.staticImage(2910, 2558,  'cartucho').refreshBody();
         
-        player = this.physics.add.sprite(400, 2876, 'paul');
-        chefao1 = this.physics.add.staticImage(3000, 2250 , 'chefe1').refreshBody();
+        player = this.physics.add.sprite(2100, 2256, 'paul');
+        chefao1 = this.physics.add.staticImage(3000, 2256 , 'chefe1').refreshBody();
+        fogoCanhao = this.physics.add.sprite(2950, 2256, 'fogoCanhao');
         barreira = this.physics.add.staticImage(1990, 2276, 'barreira').refreshBody();
         groud2 = map.createStaticLayer("groud2", tileset, 0, 0);
         cursors = this.input.keyboard.createCursorKeys();
@@ -209,6 +215,9 @@ var Principal = new Phaser.Class({
         // sons
         this.gun = this.sound.add('gun', {loop : false });
         this.pulo = this.sound.add('pulo', { loop : false});
+        this.somChefao1 = this.sound.add('somChefao1', { loop : false});
+        this.pegarObjetos = this.sound.add('pegarObjetos', { loop : false});
+        this.explosaoChefao1 = this.sound.add('explosaoChefao1', { loop : false});
     
         // camera 
         this.cameras.main.setBounds();
@@ -266,6 +275,13 @@ var Principal = new Phaser.Class({
             key: 'Bolaturn',
             frames: [ { key: 'bala', frame: 0 } ],
             frameRate: 10
+        });
+
+        this.anims.create({
+            key: 'Canhao',
+            frames: this.anims.generateFrameNumbers('fogoCanhao', { start: 0, end:0}),
+            frameRate: 10,
+            repeat: -1
         });
 
         //Acompanhando o placar e a tela
@@ -409,12 +425,14 @@ var Principal = new Phaser.Class({
 function collectVida(vida){
 
     vida.disableBody(true, true);
+    this.pegarObjetos.play();
     atualVidas = atualVidas + 2;
 }
 
 function collectCartucho(cartucho){
 
     cartucho.disableBody(true, true);
+    this.pegarObjetos.play();
     tiro = tiro + 15;
 }
 
@@ -478,6 +496,7 @@ function deathChefao1(bala, chefao1){
         chefao1.body.enable = false;
         tempo.remove(false);
         chefao1.destroy();
+        this.explosaoChefao1.play();
         score = score + 100;
     }
 }
@@ -513,11 +532,16 @@ function destroyBala(bala){
 
 function chefao1Atira(){
 
-    bala1 = this.physics.add.sprite(chefao1.x-96, chefao1.y-10, 'tigre').setVelocityX(-300);
+    bala1 = this.physics.add.sprite(chefao1.x-76, chefao1.y-3, 'tigre').setVelocityX(-400);
+    this.somChefao1.play();    
     this.physics.add.collider(bala1, collider);
     this.physics.add.collider(bala1, player, deathPlayerChefao1, null, this);
     this.physics.add.collider(bala1, barreira, bala1Barreira, null, this);
+    
+
+    
 }
+
 
 const config = {
 
