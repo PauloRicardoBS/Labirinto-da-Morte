@@ -1,7 +1,7 @@
 import Enemies from "./Enemies.js";
 import Chefaos2 from "./Chefaos2.js";
 
-var player, golem, score = 0, tempo, tempo1,fogoCanhao, chefao1, chefao2,barreira, barreira2, chefao1Vida = 15, chefao2Vida = 25, chefao3Vida = 40, 
+var player, golem, score = 0, tempo, tempo1,fim, fogoCanhao, chefao1, chefao2, chefao3, barreira, barreira2, chefao1Vida = 15, chefao2Vida = 25, chefao3Vida = 40, 
     bala, bala1, bala2, graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 65, 
     tileset, groud, groud2, map, atualVidas = 6, enter, botaoPlay, botaoDescricao, botaoVoltar, texto, Nerudo;
 
@@ -14,22 +14,17 @@ var Menu = new Phaser.Class({
     
     preload(){
         this.load.image('menuPlay', 'img/Menu_Inicial.png');
+        this.load.image('botaoP', 'img/botao_play.png');
+        this.load.image('botaoR', 'img/botao_regras.png'); 
         this.load.image('botao', 'img/button.png');          
     }, 
     
     create(){
         this.add.image(500, 400, 'menuPlay');
-        botaoPlay = this.add.image(510, 385, 'botao').setInteractive();
-        botaoDescricao = this.add.image(510, 500, 'botao').setInteractive();
+        botaoPlay = this.add.image(460, 395, 'botaoP').setInteractive();
+        botaoDescricao = this.add.image(620, 395, 'botaoR').setInteractive();
         
-        texto = this.add.text(game.config.width /2, game.config.height / 2, 'PLAY',
-        {fontSize:'40px', fill:"red"
-        }).setOrigin(0.5);
-
-        texto = this.add.text(game.config.width / 2.01, game.config.height / 1.55, 'Regras',
-        {fontSize:'40px', fill:"white"
-        }).setOrigin(0.5);
-
+       
         botaoPlay.on('pointerdown',() => {
             this.scene.start('Principal');
 
@@ -115,6 +110,38 @@ var GameOver = new Phaser.Class({
     
 })
 
+var GameWiner = new Phaser.Class({
+    Extends: Phaser.Scene,
+    initialize:
+        function Regras(){
+            Phaser.Scene.call(this, {key: 'GameWiner'});
+        },
+    
+    preload(){
+        this.load.image('GWiner', 'img/game-over.png');    
+    }, 
+    
+    create(){
+
+        this.add.image(500, 400, 'Gover');
+        botaoVoltar = this.add.image(910, 645, 'botao').setInteractive();
+
+        texto = this.add.text(game.config.width /1.12, game.config.height /1.19, 'Menu',
+        {fontSize:'40px', fill:"red"
+        }).setOrigin(0.5);
+
+        botaoVoltar.on('pointerdown',() => {
+            this.scene.start('Menu');
+        });         
+    },
+
+    update(){
+        
+    }
+
+    
+})
+
 var Principal = new Phaser.Class({
 
     Extends: Phaser.Scene,
@@ -134,6 +161,8 @@ var Principal = new Phaser.Class({
         //this.load.spritesheet('golem', 'img/golem_pedra.png', {frameWidth: 100, frameHeight: 105});
         this.load.image('chefe1', 'img/personagens/chefão01.png');
         this.load.image('chefe2', 'img/personagens/chefão02.png');
+        this.load.image('chefe3', 'img/personagens/chefao3_1.png');
+        this.load.image('fim', "img/taça.png");
         //this.load.spritesheet('fogoCanhao', 'img/fogo_canhao.png',{frameWidth: 49, frameHeight: 48});
         this.load.image('barreira', 'img/barreira.png');
         this.load.image('barreira2', 'img/barreira2.png');
@@ -179,19 +208,10 @@ var Principal = new Phaser.Class({
         this.add.image(1602, 576, 'fase3');
         this.add.image(1622, 2650, 'ceu');
         this.add.image(1602, 1617, 'deserto');
-    
-
         map = this.make.tilemap({key : "map"});
         tileset = map.addTilesetImage("cenario", "tiles");
         groud = map.createStaticLayer("groud", tileset, 0, 0);  
         barreira2 = this.physics.add.staticImage(1010, 1180, 'barreira2').refreshBody();
-    
-        //Player e colisões
-        this.enemies = map.createFromObjects("inimigo", "inimigo", {});
-        this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);
-
-        //this.chefaos2 = map.createFromObjects("chefao2", "chefao2", {});
-        //this.chefaos2Group = new Chefaos2(this.physics.world, this, [], this.chefaos2);
         
         //Vidas no jogo
         var vida0 = this.physics.add.staticImage(2300, 1300,  'vida').refreshBody();
@@ -224,10 +244,15 @@ var Principal = new Phaser.Class({
         var cartucho18 = this.physics.add.staticImage(223, 2726,  'cartucho').refreshBody();
         var cartucho19 = this.physics.add.staticImage(93, 2735,  'cartucho').refreshBody();
         var cartucho20 = this.physics.add.staticImage(592, 2732,  'cartucho').refreshBody();
-        
-        player = this.physics.add.sprite(310, 2980, 'paul');
+
+        //Player e colisões
+        this.enemies = map.createFromObjects("inimigo", "inimigo", {});
+        this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);        
+        player = this.physics.add.sprite(2980, 245, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2256 , 'chefe1').refreshBody();
         chefao2 = this.physics.add.staticImage(165, 1180 , 'chefe2').refreshBody();
+        chefao3 = this.physics.add.staticImage(2860, 200 , 'chefe3').refreshBody();
+        fim = this.physics.add.staticImage(3010, 72 , 'fim').refreshBody();
         //fogoCanhao = this.physics.add.sprite(2950, 2256, 'fogoCanhao');
         barreira = this.physics.add.staticImage(1990, 2276, 'barreira').refreshBody();
         groud2 = map.createStaticLayer("groud2", tileset, 0, 0);
@@ -238,6 +263,8 @@ var Principal = new Phaser.Class({
         player.setCollideWorldBounds(true);
         this.physics.add.collider(chefao1, collider);
         this.physics.add.collider(chefao2, collider);
+        this.physics.add.collider(chefao3, collider);
+        this.physics.add.collider(fim, collider);
         this.physics.add.collider(barreira, collider);
         this.physics.add.collider(barreira, collider);
 
@@ -272,13 +299,11 @@ var Principal = new Phaser.Class({
         this.physics.add.collider(cartucho18, player, collectCartucho, null, this);
         this.physics.add.collider(cartucho19, player, collectCartucho, null, this);
         this.physics.add.collider(cartucho20, player, collectCartucho, null, this);
-       
-
         this.physics.add.collider(player, this.enemiesGroup, deathPlayer, null, this);
         this.physics.add.collider(player, chefao1, morteSubita, null, this);
         this.physics.add.collider(player, chefao2, morteSubita, null, this);
         this.physics.add.collider(this.enemiesGroup, collider);
-       // this.physics.add.collider(this.chefaos2Group, collider);
+        this.physics.add.collider(player, fim, gameWiner, null, this);
             
         // sons
         this.gun = this.sound.add('gun', {loop : false });
@@ -287,9 +312,7 @@ var Principal = new Phaser.Class({
         this.somChefao2 = this.sound.add('somChefao2', { loop : false});
         this.pegarObjetos = this.sound.add('pegarObjetos', { loop : false});
         this.explosaoChefao1 = this.sound.add('explosaoChefao1', { loop : false});
-        
-
-    
+            
         // camera 
         this.cameras.main.setBounds();
         this.physics.world.setBounds();
@@ -374,10 +397,10 @@ var Principal = new Phaser.Class({
 
         //Acompanhando o placar e a tela
         textTela = this.add.text(20, 0,'0', {
-            fontFamily: 'Arial',
-            fontSize: '22px',
-            backgroundColor: 'rgba(0.1, 0.4, 0.4, 0.4)',
-            fill: 'Yellow'
+            fontFamily: 'Impact',
+            fontSize: '28px',
+            backgroundColor: 'rgba(0.6, 0.5, 0.5, 0.6)',
+            fill: 'white'
     
 
         }).setScrollFactor(0);
@@ -394,7 +417,6 @@ var Principal = new Phaser.Class({
 
 
         if (cursors.left.isDown){
-
             player.setVelocityX(-160);
             player.anims.play('left', true);
         }
@@ -413,10 +435,10 @@ var Principal = new Phaser.Class({
             
             bala = this.physics.add.sprite(player.x-37, player.y+3, 'bala');
             bala.setVelocityX(-1800);
-
             playerPodeAtirar = 0;  
             this.gun.play();          
             tiro = tiro -1;
+
             if (tiro < 0){
                 playerPodeAtirar = 0;
             }
@@ -435,10 +457,10 @@ var Principal = new Phaser.Class({
             
             bala = this.physics.add.sprite(player.x+39, player.y+5, 'bala');
             bala.setVelocityX(1800);
-    
             playerPodeAtirar = 0;
             this.gun.play();
             tiro = tiro -1;
+
             if (tiro < 0){
                 playerPodeAtirar = 0;
             }
@@ -518,7 +540,7 @@ function collectVida(vida){
 
     vida.disableBody(true, true);
     this.pegarObjetos.play();
-    atualVidas = atualVidas + 2;
+    atualVidas = atualVidas + 1;
 }
 
 function collectCartucho(cartucho){
@@ -581,6 +603,8 @@ function deathPlayer (player, enemiesGroup){
         player.setTint(0xff0000);
         this.physics.pause();
         player.anims.play('turn');
+        this.scene.start('GameOver');
+
     }
 }
 
@@ -617,21 +641,18 @@ function deathChefao2(bala, chefao2){
     bala.destroy();
 
     if (chefao2Vida <= 15){
-
         chefao2.setTint(0xffA500);        
     }
 
     if (chefao2Vida <= 5){
-
         chefao2.setTint(0xff0000);        
     }
                             
     if (chefao2Vida == 0){
-
         chefao2.setVisible(false);
         chefao2.setActive(false);
         chefao2.body.enable = false;
-        tempo.remove(false);
+        tempo1.remove(false);
         chefao2.destroy();
         this.explosaoChefao1.play();
         score = score + 300;
@@ -639,14 +660,12 @@ function deathChefao2(bala, chefao2){
 }
 
 function deathPlayerChefao1 (bala1, player){
-
     atualVidas = atualVidas - 1; 
     bala1.setVisible(false);
     bala1.setActive(false);
     bala1.body.enable = false;
 
-    if (atualVidas == 0){
-        
+    if (atualVidas == 0){   
         player.setTint(0x1E90FF);
         this.physics.pause();
         player.anims.play('turn');
@@ -655,19 +674,23 @@ function deathPlayerChefao1 (bala1, player){
 }
 
 function deathPlayerChefao2 (bala2, player){
-
     atualVidas = atualVidas - 1; 
     bala2.setVisible(false);
     bala2.setActive(false);
     bala2.body.enable = false;
 
-    if (atualVidas == 0){
-        
+    if (atualVidas == 0){     
         player.setTint(0x1E90FF);
         this.physics.pause();
         player.anims.play('turn');
         this.scene.start('GameOver');
     }  
+}
+
+function gameWiner(){   
+
+    this.scene.start('GameWiner');
+
 }
 
 function deathNerudo(bala, enemiesGroup){
@@ -680,12 +703,10 @@ function deathNerudo(bala, enemiesGroup){
 }
 
 function destroyBala(bala){
-
     bala.destroy();
 }
 
 function chefao1Atira(){ 
-
     bala1 = this.physics.add.sprite(chefao1.x-76, chefao1.y-4, 'balaChefao1').setVelocityX(-400);
     this.somChefao1.play();
     this.physics.add.collider(bala1, collider);
@@ -696,7 +717,6 @@ function chefao1Atira(){
 
 
 function chefao2Atira(){ 
-
     bala2 = this.physics.add.sprite(chefao2.x+76, chefao2.y-4, 'balaChefao2').setVelocityX(400);
     this.somChefao2.play();
     this.physics.add.collider(bala2, collider);
@@ -716,7 +736,7 @@ const config = {
             debug: false
         }
     },
-    scene:[Menu, Principal, Regras, GameOver],
+    scene:[Menu, Principal, Regras, GameOver, GameWiner],
 
     audio: {
         disableWebAudio: true
