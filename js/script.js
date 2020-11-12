@@ -1,8 +1,9 @@
 import Enemies from "./Enemies.js";
 
-var player, golem, score = 0, highScore = 0, tempo, tempo1, tempo2, tempo3, tempo4, fim, fogoCanhao, chefao1, chefao2, chefao3, barreira, barreira2, chefao1Vida = 15, chefao2Vida = 25, chefao3Vida = 40, 
-    bala, bala1, bala2, bala3_1, bala3_2, bala3_3, graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 100, 
-    tileset, groud, groud2, atualVidas = 7, map, enter, botaoPlay, botaoDescricao, botaoMenu, texto, Nerudo;
+var player, golem, score = 0, highScore = 0, tempo, tempo1, tempo2, tempo3, tempo4, fim, fogoCanhao, chefao1, chefao2, chefao3, barreira, barreira2, chefao1Vida = 15, 
+    chefao2Vida = 25, chefao3Vida = 40, bala, bala1, bala2, bala3_1, bala3_2, bala3_3, graphics, cursors, collider, camera,
+    playerPodeAtirar = 1, textTela, tiro = 100, tileset, groud, groud2, atualVidas = 7, map, enter, botaoPlay, botaoDescricao, botaoMenu, texto,
+    Nerudo, tiroCaveira1, tiroCaveira2, tempoCaveira, tempoChamasD,barCaveira1, barCaveira2, chamasD, raiz;
 
 var Menu = new Phaser.Class({
     Extends: Phaser.Scene,
@@ -197,6 +198,9 @@ var Principal = new Phaser.Class({
         this.load.image('fim', "img/taça.png");
         this.load.image('barreira', 'img/barreira.png');
         this.load.image('barreira2', 'img/barreira2.png');
+        this.load.image('caveiraBarreira1', 'img/barreiraCaveira1.png');
+        this.load.image('caveiraBarreira2', 'img/barreiraCaveira2.png');
+        this.load.image('chamasD', 'img/chamasD.png');
         this.load.image('bala', "img/bala.png");
         this.load.image('bola_fogo', "img/bola_fogo.png");
         this.load.spritesheet('pedra', "img/pedra.png",{frameWidth: 49, frameHeight: 48});
@@ -209,13 +213,16 @@ var Principal = new Phaser.Class({
         this.load.image('fase3', "img/fase3.png");
         this.load.image('cartucho', "img/cartucho.png");        
         this.load.image('ceu', "img/céu estrelado.png");
+        this.load.image('caveiraR', 'img/caveiraR.png');
+        this.load.image('caveiraL', 'img/caveiraL.png');
+        this.load.image('raiz', 'img/raiz.png');
         this.load.audio('gun', 'sons/gun.mp3');
         this.load.audio('pulo', 'sons/pulo.mp3'); 
         this.load.audio('somChefao1', 'sons/som_chefao1.mp3');
         this.load.audio('pegarObjetos', 'sons/pegar_objetos.mp3'); 
         this.load.audio('explosaoChefao1', 'sons/explosao_chefao1.mp3'); 
         this.load.audio('somChefao2', 'sons/Explosion1.mp3');
-        this.load.audio('morte', 'sons/morte.mp3');
+        this.load.audio('morte', 'sons/morte.mp3'); 
         this.load.audio('derrubado', 'sons/derrubado.mp3');  
         this.load.audio('TUnico', 'sons/TUnico.mp3');            
     },
@@ -260,7 +267,21 @@ var Principal = new Phaser.Class({
             loop: true, 
             callbackScope: this,
             hasDispatched : true
-        });        
+        });
+        
+        tempoCaveira = this.time.addEvent({
+            delay:6000,
+            callback: caveira,
+            loop: true,
+            callbackScope: this
+        });
+
+        tempoChamasD = this.time.addEvent({
+            delay:1000,
+            callback: chamasDown,
+            loop: true,
+            callbackScope: this
+        });
 
         //imagens e mapa  
         this.add.image(1602, 576, 'fase3');
@@ -270,6 +291,11 @@ var Principal = new Phaser.Class({
         tileset = map.addTilesetImage("cenario", "tiles");
         groud = map.createStaticLayer("groud", tileset, 0, 0);  
         barreira2 = this.physics.add.staticImage(1010, 1180, 'barreira2').refreshBody();
+        barreira = this.physics.add.staticImage(1990, 2276, 'barreira').refreshBody();
+        barCaveira1 = this.physics.add.staticImage(150, 2005, 'caveiraBarreira1').refreshBody();
+        barCaveira2 = this.physics.add.staticImage(3013, 2005, 'caveiraBarreira2').refreshBody();
+        raiz = this.physics.add.staticImage(1907, 1608, 'raiz').refreshBody();
+
         
         //Vidas no jogo
         var vida0 = this.physics.add.staticImage(2300, 1300, 'vida').refreshBody();
@@ -309,12 +335,11 @@ var Principal = new Phaser.Class({
         //Player e colisões
         this.enemies = map.createFromObjects("inimigo", "inimigo", {});
         this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);        
-        player = this.physics.add.sprite(300, 2945, 'paul');
+        player = this.physics.add.sprite(300, 1945, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2256 , 'chefe1').refreshBody();
         chefao2 = this.physics.add.staticImage(165, 1180 , 'chefe2').refreshBody();
         chefao3 = this.physics.add.staticImage(3050, 220 , 'chefe3').refreshBody();
         fim = this.physics.add.staticImage(3147, 300 , 'fim').refreshBody();
-        barreira = this.physics.add.staticImage(1990, 2276, 'barreira').refreshBody();
         groud2 = map.createStaticLayer("groud2", tileset, 0, 0);
         cursors = this.input.keyboard.createCursorKeys();
         collider = map.createStaticLayer("colisao", tileset, 0, 0);
@@ -327,6 +352,9 @@ var Principal = new Phaser.Class({
         this.physics.add.collider(fim, collider);
         this.physics.add.collider(barreira, collider);
         this.physics.add.collider(barreira, collider);
+        this.physics.add.collider(barCaveira1, collider);
+        this.physics.add.collider(barCaveira2, collider);
+        this.physics.add.collider(raiz, collider);
 
         //Coletando as vidas
         this.physics.add.collider(vida0,  player, collectVida, null, this);
@@ -662,6 +690,19 @@ function balaBarreira2(bala2){
     bala2.body.enable = false;    
 }
 
+function caveiraBarreira1(tiroCaveira1){
+    
+    tiroCaveira1.setVisible(false);
+    tiroCaveira1.setActive(false);
+    tiroCaveira1.body.enable = false;    
+}
+function caveiraBarreira2(tiroCaveira2){
+    
+    tiroCaveira2.setVisible(false);
+    tiroCaveira2.setActive(false);
+    tiroCaveira2.body.enable = false;    
+}
+
 function morteSubita(player){
     
     player.setTint(0x1E90FF);
@@ -786,6 +827,53 @@ function deathPlayerChefao (bala1, player){
     }  
 }
 
+function caveira1Player (tiroCaveira1, player){
+    atualVidas = atualVidas - 2; 
+    score = score - 16;
+    this.morte.play(); 
+    tiroCaveira1.setVisible(false);
+    tiroCaveira1.setActive(false);
+    tiroCaveira1.body.enable = false;
+
+    if (atualVidas == 0){   
+        player.setTint(0x1E90FF);
+        this.physics.pause();
+        player.anims.play('turn');
+        this.scene.start('GameOver');
+    }  
+}
+
+function caveira2Player (tiroCaveira2, player){
+    atualVidas = atualVidas - 2; 
+    score = score - 16;
+    this.morte.play(); 
+    tiroCaveira2.setVisible(false);
+    tiroCaveira2.setActive(false);
+    tiroCaveira2.body.enable = false;
+
+    if (atualVidas == 0){   
+        player.setTint(0x1E90FF);
+        this.physics.pause();
+        player.anims.play('turn');
+        this.scene.start('GameOver');
+    }  
+}
+
+function chamaDPlayer(chamasD, player){
+    atualVidas = atualVidas - 4; 
+    score = score - 100;
+    this.morte.play(); 
+    chamasD.setVisible(false);
+    chamasD.setActive(false);
+    chamasD.body.enable = false;
+
+    if (atualVidas <= 0){   
+        player.setTint(0x1E90FF);
+        this.physics.pause();
+        player.anims.play('turn');
+        this.scene.start('GameOver');
+    }  
+}
 
 function gameWiner(){  
     
@@ -812,6 +900,10 @@ function destroyBala(bala){
 
 function destroyBala3_3(bala3_3){
     bala3_3.destroy();
+}
+
+function destroychamasD(chamasD){
+    chamasD.destroy();
 }
 
 function chefao1Atira(){ 
@@ -850,6 +942,24 @@ function chefao3Atira3_3(){
     this.somChefao2.play();
     this.physics.add.collider(bala3_3, collider, destroyBala3_3);
     this.physics.add.collider(bala3_3, player, deathPlayerChefao, null, this);    
+}
+
+function caveira(){ 
+    tiroCaveira1 = this.physics.add.sprite(20, 1921, 'caveiraR').setVelocityX(450);
+    tiroCaveira2 = this.physics.add.sprite(3042,1921, 'caveiraL').setVelocityX(-500); 
+    this.physics.add.collider(tiroCaveira1, collider);
+    this.physics.add.collider(tiroCaveira2, collider);
+    this.physics.add.collider(tiroCaveira1, barCaveira2, caveiraBarreira1, null, this);
+    this.physics.add.collider(tiroCaveira2, barCaveira1, caveiraBarreira2, null, this);
+    this.physics.add.collider(tiroCaveira1, player, caveira1Player, null, this);
+    this.physics.add.collider(tiroCaveira2, player, caveira2Player, null, this);
+
+}
+
+function chamasDown(){ 
+    chamasD = this.physics.add.sprite(1910, 1488, 'chamasD');
+    this.physics.add.collider(chamasD, raiz, destroychamasD, null, this); 
+    this.physics.add.collider(chamasD, player, chamaDPlayer, null, this);
 }
 
 const config = {
