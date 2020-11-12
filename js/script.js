@@ -817,7 +817,7 @@ function chefao1Atira(){
 }
 
 function chefao2Atira(){ 
-    bala2 = this.physics.add.sprite(chefao2.x-76, chefao2.y-2, 'balaChefao2').setVelocityX(400);
+    bala2 = this.physics.add.sprite(chefao2.x+76, chefao2.y-2, 'balaChefao2').setVelocityX(400);
     this.somChefao2.play();
     this.physics.add.collider(bala2, collider);
     this.physics.add.collider(bala2, player, deathPlayerChefao, null, this);
