@@ -1,5 +1,4 @@
 import Enemies from "./Enemies.js";
-//import Chefaos2 from "./Chefaos2.js";
 
 var player, golem, score = 0, highScore = 0, tempo, tempo1, tempo2, tempo3, tempo4, fim, fogoCanhao, chefao1, chefao2, chefao3, barreira, barreira2, chefao1Vida = 15, chefao2Vida = 25, chefao3Vida = 40, 
     bala, bala1, bala2, bala3_1, bala3_2, bala3_3, graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 65, 
@@ -71,11 +70,8 @@ var Regras = new Phaser.Class({
 
     update(){
         
-    }
-
-    
+    }   
 })
-
 
 var GameOver = new Phaser.Class({
     Extends: Phaser.Scene,
@@ -124,9 +120,7 @@ var GameOver = new Phaser.Class({
         }
 
         score = 0;          
-    }
-
-    
+    }   
 })
 
 var GameWiner = new Phaser.Class({
@@ -179,14 +173,12 @@ var GameWiner = new Phaser.Class({
         }
         score = 0;        
     }
-
     
 })
 
 var Principal = new Phaser.Class({
 
     Extends: Phaser.Scene,
-
     initialize:
         function Principal(){
             Phaser.Scene.call(this, {key: 'Principal'});
@@ -199,12 +191,10 @@ var Principal = new Phaser.Class({
         this.load.tilemapTiledJSON("map", "Labirinto da Morte.json");
         this.load.spritesheet('paul', "img/player2.png", {frameWidth: 49, frameHeight: 48});
         this.load.spritesheet('inimigo', 'img/personagens/inimigo1.png', {frameWidth: 55, frameHeight: 54});
-        //this.load.spritesheet('golem', 'img/golem_pedra.png', {frameWidth: 100, frameHeight: 105});
         this.load.image('chefe1', 'img/personagens/chefão01.png');
         this.load.image('chefe2', 'img/personagens/chefão02.png');
         this.load.image('chefe3', 'img/personagens/chefao3_1.png');
         this.load.image('fim', "img/taça.png");
-        //this.load.spritesheet('fogoCanhao', 'img/fogo_canhao.png',{frameWidth: 49, frameHeight: 48});
         this.load.image('barreira', 'img/barreira.png');
         this.load.image('barreira2', 'img/barreira2.png');
         this.load.image('bala', "img/bala.png");
@@ -226,12 +216,10 @@ var Principal = new Phaser.Class({
         this.load.audio('explosaoChefao1', 'sons/explosao_chefao1.mp3'); 
         this.load.audio('somChefao2', 'sons/Explosion1.mp3');
         this.load.audio('morte', 'sons/morte.mp3');
-        this.load.audio('derrubado', 'sons/derrubado.mp3');
-               
+        this.load.audio('derrubado', 'sons/derrubado.mp3');            
     },
 
     create(){
-
        
         tempo = this.time.addEvent({
             delay: 2000,
@@ -325,7 +313,6 @@ var Principal = new Phaser.Class({
         chefao2 = this.physics.add.staticImage(165, 1180 , 'chefe2').refreshBody();
         chefao3 = this.physics.add.staticImage(3050, 220 , 'chefe3').refreshBody();
         fim = this.physics.add.staticImage(3147, 300 , 'fim').refreshBody();
-        //fogoCanhao = this.physics.add.sprite(2950, 2256, 'fogoCanhao');
         barreira = this.physics.add.staticImage(1990, 2276, 'barreira').refreshBody();
         groud2 = map.createStaticLayer("groud2", tileset, 0, 0);
         cursors = this.input.keyboard.createCursorKeys();
@@ -441,7 +428,6 @@ var Principal = new Phaser.Class({
             frameRate: 10
         });
 
-
         this.anims.create({
             key: 'Golemleft',
             frames: this.anims.generateFrameNumbers('golem', { start: 6, end: 9}),
@@ -469,8 +455,6 @@ var Principal = new Phaser.Class({
             repeat: -1
         }); 
         
-        
-
         //Acompanhando o placar e a tela
         textTela = this.add.text(20, 0,'0', {
             fontFamily: 'pixelFont',
@@ -478,7 +462,6 @@ var Principal = new Phaser.Class({
             backgroundColor: 'rgba(0.6, 0.5, 0.5, 0.6)',
             fill: 'yellow'
     
-
         }).setScrollFactor(0);
         
         if (this.cameras.main.deadzone){
@@ -490,7 +473,6 @@ var Principal = new Phaser.Class({
     },
 
     update(){
-
 
         if (cursors.left.isDown){
             player.setVelocityX(-160);
@@ -607,10 +589,8 @@ var Principal = new Phaser.Class({
                     'Chefão3: ' + chefao3Vida]);
             }
 
-
         }
         
-
         if(cursors.space.isUp && tiro > 0){
             playerPodeAtirar = 1;
         }
@@ -701,7 +681,6 @@ function deathPlayer (player, enemiesGroup){
         this.physics.pause();
         player.anims.play('turn');
         this.scene.start('GameOver');
-
     }
 }
 
@@ -809,7 +788,6 @@ function gameWiner(){
     }
 
     this.scene.start('GameWiner');
-
 }
 
 function deathNerudo(bala, enemiesGroup){
@@ -830,45 +808,35 @@ function destroyBala3_3(bala3_3){
     bala3_3.destroy();
 }
 
-function destroyBala3_2(bala3_2){
-    bala3_2.destroy();
-}
-
 function chefao1Atira(){ 
     bala1 = this.physics.add.sprite(chefao1.x-76, chefao1.y-4, 'balaChefao1').setVelocityX(-400);
     this.somChefao1.play();
     this.physics.add.collider(bala1, collider);
     this.physics.add.collider(bala1, player, deathPlayerChefao, null, this);
-    this.physics.add.collider(bala1, barreira, bala1Barreira, null, this); 
-    
+    this.physics.add.collider(bala1, barreira, bala1Barreira, null, this);    
 }
-
 
 function chefao2Atira(){ 
     bala2 = this.physics.add.sprite(chefao2.x-76, chefao2.y-2, 'balaChefao2').setVelocityX(400);
     this.somChefao2.play();
     this.physics.add.collider(bala2, collider);
     this.physics.add.collider(bala2, player, deathPlayerChefao, null, this);
-    this.physics.add.collider(bala2, barreira2, balaBarreira2, null, this); 
-    
+    this.physics.add.collider(bala2, barreira2, balaBarreira2, null, this);    
 }
-
 
 function chefao3Atira3_1(){ 
     bala3_1 = this.physics.add.sprite(chefao3.x-40, chefao3.y-114, 'balaChefao3_1').setVelocityX(-400);
     this.somChefao2.play();
     this.physics.add.collider(bala3_1, collider, destroyBala3_3);
     this.physics.add.collider(bala3_1, player, deathPlayerChefao, null, this);
-     
-    
+       
 }
 
 function chefao3Atira3_2(){ 
     bala3_2 = this.physics.add.sprite(chefao3.x-120, chefao3.y, 'balaChefao3_2').setVelocityX(-600);
     this.somChefao2.play();
     this.physics.add.collider(bala3_2, collider, destroyBala3_3);
-    this.physics.add.collider(bala3_2, player, deathPlayerChefao, null, this);    
-    
+    this.physics.add.collider(bala3_2, player, deathPlayerChefao, null, this);       
 }
 
 function chefao3Atira3_3(){ 
