@@ -1,8 +1,8 @@
 import Enemies from "./Enemies.js";
 
 var player, golem, score = 0, highScore = 0, tempo, tempo1, tempo2, tempo3, tempo4, fim, fogoCanhao, chefao1, chefao2, chefao3, barreira, barreira2, chefao1Vida = 15, chefao2Vida = 25, chefao3Vida = 40, 
-    bala, bala1, bala2, bala3_1, bala3_2, bala3_3, graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 65, 
-    tileset, groud, groud2, atualVidas = 6, map, enter, botaoPlay, botaoDescricao, botaoMenu, texto, Nerudo;
+    bala, bala1, bala2, bala3_1, bala3_2, bala3_3, graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 100, 
+    tileset, groud, groud2, atualVidas = 7, map, enter, botaoPlay, botaoDescricao, botaoMenu, texto, Nerudo;
 
 var Menu = new Phaser.Class({
     Extends: Phaser.Scene,
@@ -100,10 +100,10 @@ var GameOver = new Phaser.Class({
         {fontSize:'40px', fill:"white"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/1.7, game.config.height/7, 'Recorde:',
-        {fontSize:'40px', fontFamily:'Retro', fill:"white"}).setOrigin(0.5);
+        {fontSize:'40px', fill:"white"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/1.3, game.config.height/7, highScore,
-        {fontSize:'40px', fontFamily:'Courier' ,fill:"white"}).setOrigin(0.5);
+        {fontSize:'40px', fill:"white"}).setOrigin(0.5);
 
         botaoMenu.on('pointerdown',() => {
             this.scene.start('Menu');         
@@ -272,37 +272,39 @@ var Principal = new Phaser.Class({
         barreira2 = this.physics.add.staticImage(1010, 1180, 'barreira2').refreshBody();
         
         //Vidas no jogo
-        var vida0 = this.physics.add.staticImage(2300, 1300,  'vida').refreshBody();
-        var vida1 = this.physics.add.staticImage(500, 2000,  'vida').refreshBody();
+        var vida0 = this.physics.add.staticImage(2300, 1300, 'vida').refreshBody();
+        var vida1 = this.physics.add.staticImage(500,  2000, 'vida').refreshBody();
         var vida2 = this.physics.add.staticImage(3000, 2250, 'vida').refreshBody();
-        var vida3 = this.physics.add.staticImage(77, 851,    'vida').refreshBody();
+        var vida3 = this.physics.add.staticImage(77,    851, 'vida').refreshBody();
         var vida4 = this.physics.add.staticImage(2129, 1230, 'vida').refreshBody();
-        var vida5 = this.physics.add.staticImage(2510, 106,  'vida').refreshBody();
-        var vida6 = this.physics.add.staticImage(151, 2927,  'vida').refreshBody();
-        var vida7 = this.physics.add.staticImage(2562, 2524,  'vida').refreshBody();
-        var vida8 = this.physics.add.staticImage(1950, 96,  'vida').refreshBody();
+        var vida5 = this.physics.add.staticImage(2510,  106, 'vida').refreshBody();
+        var vida6 = this.physics.add.staticImage(151,  2927, 'vida').refreshBody();
+        var vida7 = this.physics.add.staticImage(2562, 2524, 'vida').refreshBody();
+        var vida8 = this.physics.add.staticImage(1950,   96, 'vida').refreshBody();
+        var vida9 = this.physics.add.staticImage(165,  1180, 'vida').refreshBody();
+        var vida10 = this.physics.add.staticImage(165,  1180, 'vida').refreshBody();
 
         //Cartuchos de balas
-        var cartucho1 = this.physics.add.staticImage(1807, 894,  'cartucho').refreshBody();
-        var cartucho2 = this.physics.add.staticImage(2070, 264,  'cartucho').refreshBody();
-        var cartucho3 = this.physics.add.staticImage(78, 2915,   'cartucho').refreshBody();
-        var cartucho4 = this.physics.add.staticImage(1106, 2893, 'cartucho').refreshBody();
-        var cartucho5 = this.physics.add.staticImage(924, 2333,  'cartucho').refreshBody();
-        var cartucho6 = this.physics.add.staticImage(2290, 2272, 'cartucho').refreshBody();
-        var cartucho7 = this.physics.add.staticImage(2744, 1989,  'cartucho').refreshBody();
-        var cartucho8 = this.physics.add.staticImage(1959, 1532,  'cartucho').refreshBody();
-        var cartucho9 = this.physics.add.staticImage(2814, 1356,  'cartucho').refreshBody();
-        var cartucho10 = this.physics.add.staticImage(2399, 1226,  'cartucho').refreshBody();
-        var cartucho11 = this.physics.add.staticImage(1383, 227,  'cartucho').refreshBody();
-        var cartucho12 = this.physics.add.staticImage(2707, 106,  'cartucho').refreshBody();
-        var cartucho13 = this.physics.add.staticImage(1608, 495,  'cartucho').refreshBody();
-        var cartucho14 = this.physics.add.staticImage(1873, 906,  'cartucho').refreshBody();
-        var cartucho15 = this.physics.add.staticImage(2649, 1195,  'cartucho').refreshBody();
-        var cartucho16 = this.physics.add.staticImage(2860, 1060,  'cartucho').refreshBody();
-        var cartucho17 = this.physics.add.staticImage(2910, 2558,  'cartucho').refreshBody();
-        var cartucho18 = this.physics.add.staticImage(223, 2726,  'cartucho').refreshBody();
-        var cartucho19 = this.physics.add.staticImage(93, 2735,  'cartucho').refreshBody();
-        var cartucho20 = this.physics.add.staticImage(592, 2732,  'cartucho').refreshBody();
+        var cartucho1 = this.physics.add.staticImage(1807,   894, 'cartucho').refreshBody();
+        var cartucho2 = this.physics.add.staticImage(2070,   264, 'cartucho').refreshBody();
+        var cartucho3 = this.physics.add.staticImage(78,    2915, 'cartucho').refreshBody();
+        var cartucho4 = this.physics.add.staticImage(1106,  2893, 'cartucho').refreshBody();
+        var cartucho5 = this.physics.add.staticImage(924,   2333, 'cartucho').refreshBody();
+        var cartucho6 = this.physics.add.staticImage(2290,  2272, 'cartucho').refreshBody();
+        var cartucho7 = this.physics.add.staticImage(2744,  1989, 'cartucho').refreshBody();
+        var cartucho8 = this.physics.add.staticImage(1959,  1532, 'cartucho').refreshBody();
+        var cartucho9 = this.physics.add.staticImage(2814,  1356, 'cartucho').refreshBody();
+        var cartucho10 = this.physics.add.staticImage(2399, 1226, 'cartucho').refreshBody();
+        var cartucho11 = this.physics.add.staticImage(1383,  227, 'cartucho').refreshBody();
+        var cartucho12 = this.physics.add.staticImage(2707,  106, 'cartucho').refreshBody();
+        var cartucho13 = this.physics.add.staticImage(1608,  495, 'cartucho').refreshBody();
+        var cartucho14 = this.physics.add.staticImage(1873,  906, 'cartucho').refreshBody();
+        var cartucho15 = this.physics.add.staticImage(2649, 1195, 'cartucho').refreshBody();
+        var cartucho16 = this.physics.add.staticImage(2860, 1060, 'cartucho').refreshBody();
+        var cartucho17 = this.physics.add.staticImage(2910, 2558, 'cartucho').refreshBody();
+        var cartucho18 = this.physics.add.staticImage(223,  2726, 'cartucho').refreshBody();
+        var cartucho19 = this.physics.add.staticImage(93,   2735, 'cartucho').refreshBody();
+        var cartucho20 = this.physics.add.staticImage(592,  2732, 'cartucho').refreshBody();
 
         //Player e colisões
         this.enemies = map.createFromObjects("inimigo", "inimigo", {});
@@ -336,6 +338,8 @@ var Principal = new Phaser.Class({
         this.physics.add.collider(vida6, player, collectVida, null, this);
         this.physics.add.collider(vida7, player, collectVida, null, this);
         this.physics.add.collider(vida8, player, collectVida, null, this); 
+        this.physics.add.collider(vida9, player, collectVida, null, this); 
+        this.physics.add.collider(vida10, player, collectVida, null, this); 
         
         //Coletando os cartuchos
         this.physics.add.collider(cartucho1,  player, collectCartucho, null, this);
@@ -574,6 +578,7 @@ var Principal = new Phaser.Class({
 
             else if(chefao2Vida > 0){
                 textTela.setText([
+                    'Recorde: ' + highScore,
                     'Munição: ' + tiro,
                     'Vidas: ' + atualVidas,
                     'Score: ' + score,
@@ -583,6 +588,7 @@ var Principal = new Phaser.Class({
             else{
 
                 textTela.setText([
+                    'Recorde: ' + highScore,
                     'Munição: ' + tiro,
                     'Vidas: ' + atualVidas,
                     'Score: ' + score,
