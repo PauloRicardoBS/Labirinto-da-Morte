@@ -216,7 +216,8 @@ var Principal = new Phaser.Class({
         this.load.audio('explosaoChefao1', 'sons/explosao_chefao1.mp3'); 
         this.load.audio('somChefao2', 'sons/Explosion1.mp3');
         this.load.audio('morte', 'sons/morte.mp3');
-        this.load.audio('derrubado', 'sons/derrubado.mp3');            
+        this.load.audio('derrubado', 'sons/derrubado.mp3');  
+        this.load.audio('TUnico', 'sons/TUnico.mp3');            
     },
 
     create(){
@@ -259,9 +260,7 @@ var Principal = new Phaser.Class({
             loop: true, 
             callbackScope: this,
             hasDispatched : true
-        }); 
-
-        
+        });        
 
         //imagens e mapa  
         this.add.image(1602, 576, 'fase3');
@@ -375,6 +374,7 @@ var Principal = new Phaser.Class({
         this.explosaoChefao1 = this.sound.add('explosaoChefao1', { loop : false});
         this.morte = this.sound.add('morte', { loop : false});
         this.derrubado = this.sound.add('derrubado', { loop : false});
+        this.somChefao3 = this.sound.add('TUnico', { loop : false});
             
         // camera 
         this.cameras.main.setBounds();
@@ -834,7 +834,7 @@ function chefao3Atira3_1(){
 
 function chefao3Atira3_2(){ 
     bala3_2 = this.physics.add.sprite(chefao3.x-120, chefao3.y, 'balaChefao3_2').setVelocityX(-600);
-    this.somChefao2.play();
+    this.somChefao3.play();
     this.physics.add.collider(bala3_2, collider, destroyBala3_3);
     this.physics.add.collider(bala3_2, player, deathPlayerChefao, null, this);       
 }
