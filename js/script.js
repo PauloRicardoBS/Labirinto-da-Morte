@@ -287,7 +287,7 @@ var Principal = new Phaser.Class({
         });
 
         tempoMeteoro = this.time.addEvent({
-            delay:16000,
+            delay:30000,
             callback: meterosDown,
             loop: true,
             callbackScope: this
