@@ -1,9 +1,10 @@
 import Enemies from "./Enemies.js";
 
-var player, golem, score = 0, highScore = 0, tempo, tempo1, tempo2, tempo3, tempo4, fim, plataforma, fogoCanhao, chefao1, chefao2, chefao3, barreira, barreira2, chefao1Vida = 15, 
-    chefao2Vida = 25, chefao3Vida = 40, bala, bala1, bala2, bala3_1, bala3_2, bala3_3, graphics, cursors, collider, camera,
-    playerPodeAtirar = 1, textTela, tiro = 100, tileset, groud, groud2, atualVidas = 7, map, enter, botaoPlay, botaoDescricao, botaoMenu, texto,
-    Nerudo, tiroCaveira1, tiroCaveira2, tempoCaveira, tempoChamasD, tempoMeteoro, barCaveira1, barCaveira2, chamasD, raiz;
+var player, golem, score = 0, highScore = 0, tempo, tempo1, tempo2, tempo3, tempo4, fim, plataforma, fogoCanhao, chefao1, chefao2,
+    chefao3, barreira, barreira2, chefao1Vida = 15, chefao2Vida = 25, chefao3Vida = 40, bala, bala1, bala2, bala3_1, bala3_2, bala3_3,
+    graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 100, tileset, groud, groud2, atualVidas = 10, map, enter,
+    botaoPlay, botaoDescricao, botaoMenu, texto,    Nerudo, tiroCaveira1, tiroCaveira2, tempoCaveira, tempoChamasD, tempoMeteoro, barCaveira1, 
+    barCaveira2, chamasD, raiz;
 
 var Menu = new Phaser.Class({
     Extends: Phaser.Scene,
@@ -346,7 +347,7 @@ var Principal = new Phaser.Class({
         this.enemies = map.createFromObjects("inimigo", "inimigo", {});
         this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);      
         
-        player = this.physics.add.sprite(300, 2990, 'paul');
+        player = this.physics.add.sprite(250, 3050, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2256 , 'chefe1').refreshBody();
         chefao2 = this.physics.add.staticImage(165, 1180 , 'chefe2').refreshBody();
         chefao3 = this.physics.add.staticImage(3050, 220 , 'chefe3').refreshBody();
@@ -1128,7 +1129,7 @@ function chefao1Atira(){
 }
 
 function chefao2Atira(){ 
-    bala2 = this.physics.add.sprite(chefao2.x+76, chefao2.y-2, 'balaChefao2').setVelocityX(400);
+    bala2 = this.physics.add.sprite(chefao2.x+76, chefao2.y-1, 'balaChefao2').setVelocityX(400);
     this.somChefao2.play();
     this.physics.add.collider(bala2, collider);
     this.physics.add.collider(bala2, player, deathPlayerChefao, null, this);
