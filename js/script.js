@@ -531,6 +531,8 @@ var Principal = new Phaser.Class({
             this.physics.add.collider(bala, bala1, balaChefao1, null, this);
             this.physics.add.collider(bala, bala2, balaChefao2, null, this);
             this.physics.add.collider(bala, bala3_1, balaChefao3, null, this);
+            this.physics.add.collider(bala, tiroCaveira1, balaCaveira1, null, this);
+            this.physics.add.collider(bala, tiroCaveira2, balaCaveira2, null, this);
             bala.setCollideWorldBounds(true);                  
 
         }
@@ -555,6 +557,8 @@ var Principal = new Phaser.Class({
             this.physics.add.collider(bala, bala1, balaChefao1, null, this);
             this.physics.add.collider(bala, bala2, balaChefao2, null, this);
             this.physics.add.collider(bala, bala3_1, balaChefao3, null, this);
+            this.physics.add.collider(bala, tiroCaveira1, balaCaveira1, null, this);
+            this.physics.add.collider(bala, tiroCaveira2, balaCaveira2, null, this);
             bala.setCollideWorldBounds(true); 
 
         }
@@ -635,6 +639,24 @@ function collectCartucho(cartucho){
     this.pegarObjetos.play();
     tiro = tiro + 15;
     score = score + 1;
+}
+
+function balaCaveira1(bala, tiroCaveira1){
+    
+    tiroCaveira1.setVisible(false);
+    tiroCaveira1.setActive(false);
+    tiroCaveira1.body.enable = false;
+    score = score + 25;
+    bala.destroy(); 
+}
+
+function balaCaveira2(bala, tiroCaveira2){
+    
+    tiroCaveira2.setVisible(false);
+    tiroCaveira2.setActive(false);
+    tiroCaveira2.body.enable = false;
+    score = score + 25;
+    bala.destroy(); 
 }
 
 function balaChefao1(bala, bala1){
