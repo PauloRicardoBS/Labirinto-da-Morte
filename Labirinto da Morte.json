@@ -86,29 +86,6 @@
         }, 
         {
          "draworder":"topdown",
-         "id":20,
-         "name":"chefao2",
-         "objects":[
-                {
-                 "height":0,
-                 "id":119,
-                 "name":"chefao2",
-                 "point":true,
-                 "rotation":0,
-                 "type":"chefao2",
-                 "visible":true,
-                 "width":0,
-                 "x":508.334,
-                 "y":1222.99
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
          "id":13,
          "name":"inimigo",
          "objects":[
@@ -337,8 +314,8 @@
                  "type":"inimigo",
                  "visible":true,
                  "width":0,
-                 "x":212,
-                 "y":1998.33
+                 "x":183.333,
+                 "y":2007
                 }, 
                 {
                  "height":0,
@@ -1705,8 +1682,8 @@
                  "type":"inimigo",
                  "visible":true,
                  "width":0,
-                 "x":1744.67,
-                 "y":1380
+                 "x":1705.34,
+                 "y":1386
                 }, 
                 {
                  "height":0,
@@ -1750,8 +1727,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":21,
- "nextobjectid":172,
+ "nextlayerid":22,
+ "nextobjectid":192,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",

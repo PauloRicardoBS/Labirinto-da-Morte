@@ -1,9 +1,9 @@
 import Enemies from "./Enemies.js";
 
-var player, golem, score = 0, highScore = 0, tempo, tempo1, tempo2, tempo3, tempo4, fim, fogoCanhao, chefao1, chefao2, chefao3, barreira, barreira2, chefao1Vida = 15, 
+var player, golem, score = 0, highScore = 0, tempo, tempo1, tempo2, tempo3, tempo4, fim, plataforma, fogoCanhao, chefao1, chefao2, chefao3, barreira, barreira2, chefao1Vida = 15, 
     chefao2Vida = 25, chefao3Vida = 40, bala, bala1, bala2, bala3_1, bala3_2, bala3_3, graphics, cursors, collider, camera,
     playerPodeAtirar = 1, textTela, tiro = 100, tileset, groud, groud2, atualVidas = 7, map, enter, botaoPlay, botaoDescricao, botaoMenu, texto,
-    Nerudo, tiroCaveira1, tiroCaveira2, tempoCaveira, tempoChamasD,barCaveira1, barCaveira2, chamasD, raiz;
+    Nerudo, tiroCaveira1, tiroCaveira2, tempoCaveira, tempoChamasD, tempoMeteoro, barCaveira1, barCaveira2, chamasD, raiz;
 
 var Menu = new Phaser.Class({
     Extends: Phaser.Scene,
@@ -192,6 +192,7 @@ var Principal = new Phaser.Class({
         this.load.tilemapTiledJSON("map", "Labirinto da Morte.json");
         this.load.spritesheet('paul', "img/player2.png", {frameWidth: 49, frameHeight: 48});
         this.load.spritesheet('inimigo', 'img/personagens/inimigo1.png', {frameWidth: 55, frameHeight: 54});
+        this.load.image('meteoro', 'img/meteoro.png');
         this.load.image('chefe1', 'img/personagens/chefão01.png');
         this.load.image('chefe2', 'img/personagens/chefão02.png');
         this.load.image('chefe3', 'img/personagens/chefao3_1.png');
@@ -216,6 +217,7 @@ var Principal = new Phaser.Class({
         this.load.image('caveiraR', 'img/caveiraR.png');
         this.load.image('caveiraL', 'img/caveiraL.png');
         this.load.image('raiz', 'img/raiz.png');
+        this.load.image('plataforma', 'img/plataforma.png');
         this.load.audio('gun', 'sons/gun.mp3');
         this.load.audio('pulo', 'sons/pulo.mp3'); 
         this.load.audio('somChefao1', 'sons/som_chefao1.mp3');
@@ -277,8 +279,15 @@ var Principal = new Phaser.Class({
         });
 
         tempoChamasD = this.time.addEvent({
-            delay:1000,
+            delay:1500,
             callback: chamasDown,
+            loop: true,
+            callbackScope: this
+        });
+
+        tempoMeteoro = this.time.addEvent({
+            delay:20000,
+            callback: meterosDown,
             loop: true,
             callbackScope: this
         });
@@ -289,9 +298,10 @@ var Principal = new Phaser.Class({
         this.add.image(1602, 1617, 'deserto');
         map = this.make.tilemap({key : "map"});
         tileset = map.addTilesetImage("cenario", "tiles");
-        groud = map.createStaticLayer("groud", tileset, 0, 0);  
+        groud = map.createStaticLayer("groud", tileset, 0, 0);
+        barreira = this.physics.add.staticImage(1990, 2276, 'barreira').refreshBody();  
         barreira2 = this.physics.add.staticImage(1010, 1180, 'barreira2').refreshBody();
-        barreira = this.physics.add.staticImage(1990, 2276, 'barreira').refreshBody();
+        plataforma = this.physics.add.staticImage(1600, 3200, 'plataforma').refreshBody();
         barCaveira1 = this.physics.add.staticImage(150, 2005, 'caveiraBarreira1').refreshBody();
         barCaveira2 = this.physics.add.staticImage(3013, 2005, 'caveiraBarreira2').refreshBody();
         raiz = this.physics.add.staticImage(1907, 1608, 'raiz').refreshBody();
@@ -334,8 +344,9 @@ var Principal = new Phaser.Class({
 
         //Player e colisões
         this.enemies = map.createFromObjects("inimigo", "inimigo", {});
-        this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);        
-        player = this.physics.add.sprite(300, 1945, 'paul');
+        this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);      
+        
+        player = this.physics.add.sprite(300, 2990, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2256 , 'chefe1').refreshBody();
         chefao2 = this.physics.add.staticImage(165, 1180 , 'chefe2').refreshBody();
         chefao3 = this.physics.add.staticImage(3050, 220 , 'chefe3').refreshBody();
@@ -343,14 +354,14 @@ var Principal = new Phaser.Class({
         groud2 = map.createStaticLayer("groud2", tileset, 0, 0);
         cursors = this.input.keyboard.createCursorKeys();
         collider = map.createStaticLayer("colisao", tileset, 0, 0);
-        collider.setCollisionByProperty({"colisao": true});         
+        collider.setCollisionByProperty({"colisao": true});
         this.physics.add.collider(player, collider);
         player.setCollideWorldBounds(true);
-        this.physics.add.collider(chefao1, collider);
+        this.physics.add.collider(chefao1, collider); 
         this.physics.add.collider(chefao2, collider);
         this.physics.add.collider(chefao3, collider);
         this.physics.add.collider(fim, collider);
-        this.physics.add.collider(barreira, collider);
+        this.physics.add.collider(barreira2, collider);
         this.physics.add.collider(barreira, collider);
         this.physics.add.collider(barCaveira1, collider);
         this.physics.add.collider(barCaveira2, collider);
@@ -461,30 +472,9 @@ var Principal = new Phaser.Class({
         });
 
         this.anims.create({
-            key: 'Golemleft',
-            frames: this.anims.generateFrameNumbers('golem', { start: 6, end: 9}),
-            frameRate: 6,
-            repeat: -1
-        });
-        
-        this.anims.create({
-            key: 'Golemturn',
-            frames: [ { key: 'golem', frame: 9 } ],
-            frameRate: 0
-        });
-    
-        this.anims.create({
-            key: 'Golemright',
-            frames: this.anims.generateFrameNumbers('golem', { start: 0, end: 4}),
-            frameRate: 6,
-            repeat: -1
-        }); 
-
-        this.anims.create({
-            key: 'Pedra',
-            frames: this.anims.generateFrameNumbers('pedra', { start: 0, end: 6}),
-            frameRate: 10,
-            repeat: -1
+            key: 'Meteoro',
+            frames: [ { key: 'meteoro', frame: 0 } ],
+            frameRate: 10
         }); 
         
         //Acompanhando o placar e a tela
@@ -573,7 +563,7 @@ var Principal = new Phaser.Class({
             
             if(player.body.onFloor()){
                 this.pulo.play();
-                player.body.setVelocityY(-450);
+                player.body.setVelocityY(-400);
             }
         } 
         
@@ -875,6 +865,167 @@ function chamaDPlayer(chamasD, player){
     }  
 }
 
+function meteoroD1Player(meteoroD1, player){
+    atualVidas = atualVidas - 1; 
+    score = score - 10;
+    this.morte.play(); 
+    meteoroD1.setVisible(false);
+    meteoroD1.setActive(false);
+    meteoroD1.body.enable = false;
+
+    if (atualVidas <= 0){   
+        player.setTint(0x1E90FF);
+        this.physics.pause();
+        player.anims.play('turn');
+        this.scene.start('GameOver');
+    }  
+}
+
+function meteoroD2Player(meteoroD2, player){
+    atualVidas = atualVidas - 1; 
+    score = score - 10;
+    this.morte.play(); 
+    meteoroD2.setVisible(false);
+    meteoroD2.setActive(false);
+    meteoroD2.body.enable = false;
+
+    if (atualVidas <= 0){   
+        player.setTint(0x1E90FF);
+        this.physics.pause();
+        player.anims.play('turn');
+        this.scene.start('GameOver');
+    }  
+}
+
+function meteoroD3Player(meteoroD3, player){
+    atualVidas = atualVidas - 1; 
+    score = score - 10;
+    this.morte.play(); 
+    meteoroD3.setVisible(false);
+    meteoroD3.setActive(false);
+    meteoroD3.body.enable = false;
+
+    if (atualVidas <= 0){   
+        player.setTint(0x1E90FF);
+        this.physics.pause();
+        player.anims.play('turn');
+        this.scene.start('GameOver');
+    }  
+}
+
+function meteoroD4Player(meteoroD4, player){
+    atualVidas = atualVidas - 1; 
+    score = score - 10;
+    this.morte.play(); 
+    meteoroD4.setVisible(false);
+    meteoroD4.setActive(false);
+    meteoroD4.body.enable = false;
+
+    if (atualVidas <= 0){   
+        player.setTint(0x1E90FF);
+        this.physics.pause();
+        player.anims.play('turn');
+        this.scene.start('GameOver');
+    }  
+}
+
+function meteoroD5Player(meteoroD5, player){
+    atualVidas = atualVidas - 1; 
+    score = score - 10;
+    this.morte.play(); 
+    meteoroD5.setVisible(false);
+    meteoroD5.setActive(false);
+    meteoroD5.body.enable = false;
+
+    if (atualVidas <= 0){   
+        player.setTint(0x1E90FF);
+        this.physics.pause();
+        player.anims.play('turn');
+        this.scene.start('GameOver');
+    }  
+}
+
+function meteoroD6Player(meteoroD6, player){
+    atualVidas = atualVidas - 1; 
+    score = score - 10;
+    this.morte.play(); 
+    meteoroD6.setVisible(false);
+    meteoroD6.setActive(false);
+    meteoroD6.body.enable = false;
+
+    if (atualVidas <= 0){   
+        player.setTint(0x1E90FF);
+        this.physics.pause();
+        player.anims.play('turn');
+        this.scene.start('GameOver');
+    }  
+}
+
+function meteoroD7Player(meteoroD7, player){
+    atualVidas = atualVidas - 1; 
+    score = score - 10;
+    this.morte.play(); 
+    meteoroD7.setVisible(false);
+    meteoroD7.setActive(false);
+    meteoroD7.body.enable = false;
+
+    if (atualVidas <= 0){   
+        player.setTint(0x1E90FF);
+        this.physics.pause();
+        player.anims.play('turn');
+        this.scene.start('GameOver');
+    }  
+}
+
+function meteoroD8Player(meteoroD8, player){
+    atualVidas = atualVidas - 1; 
+    score = score - 10;
+    this.morte.play(); 
+    meteoroD8.setVisible(false);
+    meteoroD8.setActive(false);
+    meteoroD8.body.enable = false;
+
+    if (atualVidas <= 0){   
+        player.setTint(0x1E90FF);
+        this.physics.pause();
+        player.anims.play('turn');
+        this.scene.start('GameOver');
+    }  
+}
+
+function meteoroD9Player(meteoroD9, player){
+    atualVidas = atualVidas - 1; 
+    score = score - 10;
+    this.morte.play(); 
+    meteoroD9.setVisible(false);
+    meteoroD9.setActive(false);
+    meteoroD9.body.enable = false;
+
+    if (atualVidas <= 0){   
+        player.setTint(0x1E90FF);
+        this.physics.pause();
+        player.anims.play('turn');
+        this.scene.start('GameOver');
+    }  
+}
+
+function meteoroD10Player(meteoroD10, player){
+    atualVidas = atualVidas - 1; 
+    score = score - 10;
+    this.morte.play(); 
+    meteoroD10.setVisible(false);
+    meteoroD10.setActive(false);
+    meteoroD10.body.enable = false;
+
+    if (atualVidas <= 0){   
+        player.setTint(0x1E90FF);
+        this.physics.pause();
+        player.anims.play('turn');
+        this.scene.start('GameOver');
+    }  
+}
+
+
 function gameWiner(){  
     
     if(highScore < score){
@@ -904,6 +1055,46 @@ function destroyBala3_3(bala3_3){
 
 function destroychamasD(chamasD){
     chamasD.destroy();
+}
+
+function destroyMeteoroD1(meteoroD1){
+    meteoroD1.destroy();
+}
+
+function destroyMeteoroD2(meteoroD2){
+    meteoroD2.destroy();
+}
+
+function destroyMeteoroD3(meteoroD3){
+    meteoroD3.destroy();
+}
+
+function destroyMeteoroD4(meteoroD4){
+    meteoroD4.destroy();
+}
+
+function destroyMeteoroD5(meteoroD5){
+    meteoroD5.destroy();
+}
+
+function destroyMeteoroD6(meteoroD6){
+    meteoroD6.destroy();
+}
+
+function destroyMeteoroD7(meteoroD7){
+    meteoroD7.destroy();
+}
+
+function destroyMeteoroD8(meteoroD8){
+    meteoroD8.destroy();
+}
+
+function destroyMeteoroD9(meteoroD9){
+    meteoroD9.destroy();
+}
+
+function destroyMeteoroD10(meteoroD10){
+    meteoroD10.destroy();
 }
 
 function chefao1Atira(){ 
@@ -962,14 +1153,51 @@ function chamasDown(){
     this.physics.add.collider(chamasD, player, chamaDPlayer, null, this);
 }
 
+function meterosDown(){ 
+    var meteoroD1 = this.physics.add.sprite(2181, 863, 'meteoro').setVelocityY(-50);
+    var meteoroD2 = this.physics.add.sprite(1512, 345, 'meteoro').setVelocityY(-50);
+    var meteoroD3 = this.physics.add.sprite(1000, 360, 'meteoro').setVelocityY(-50);
+    var meteoroD4 = this.physics.add.sprite(1890, 1013, 'meteoro').setVelocityY(-50);
+    var meteoroD5 = this.physics.add.sprite(293, 969, 'meteoro').setVelocityY(-50);
+    var meteoroD6 = this.physics.add.sprite(827, 915, 'meteoro').setVelocityY(-50);
+    var meteoroD7 = this.physics.add.sprite(3027, 606, 'meteoro').setVelocityY(-50);
+    var meteoroD8 = this.physics.add.sprite(2715, 942, 'meteoro').setVelocityY(-50);
+    var meteoroD9 = this.physics.add.sprite(1430, 960, 'meteoro').setVelocityY(-50);
+    var meteoroD10 = this.physics.add.sprite(427, 848, 'meteoro').setVelocityY(-50);
+    
+
+    this.physics.add.collider(meteoroD1, plataforma, destroyMeteoroD1, null, this);
+    this.physics.add.collider(meteoroD2, plataforma, destroyMeteoroD2, null, this);
+    this.physics.add.collider(meteoroD3, plataforma, destroyMeteoroD3, null, this);
+    this.physics.add.collider(meteoroD4, plataforma, destroyMeteoroD4, null, this);
+    this.physics.add.collider(meteoroD5, plataforma, destroyMeteoroD5, null, this); 
+    this.physics.add.collider(meteoroD6, plataforma, destroyMeteoroD6, null, this);
+    this.physics.add.collider(meteoroD7, plataforma, destroyMeteoroD7, null, this);
+    this.physics.add.collider(meteoroD8, plataforma, destroyMeteoroD8, null, this);
+    this.physics.add.collider(meteoroD9, plataforma, destroyMeteoroD9, null, this);
+    this.physics.add.collider(meteoroD10, plataforma, destroyMeteoroD10, null, this);
+
+    this.physics.add.collider(meteoroD1, player, meteoroD1Player, null, this);
+    this.physics.add.collider(meteoroD2, player, meteoroD1Player, null, this);
+    this.physics.add.collider(meteoroD3, player, meteoroD1Player, null, this);
+    this.physics.add.collider(meteoroD4, player, meteoroD1Player, null, this);
+    this.physics.add.collider(meteoroD5, player, meteoroD1Player, null, this);
+    this.physics.add.collider(meteoroD6, player, meteoroD1Player, null, this);
+    this.physics.add.collider(meteoroD7, player, meteoroD1Player, null, this);
+    this.physics.add.collider(meteoroD8, player, meteoroD1Player, null, this);
+    this.physics.add.collider(meteoroD9, player, meteoroD1Player, null, this);
+    this.physics.add.collider(meteoroD10, player, meteoroD1Player, null, this);
+
+}
+
 const config = {
 
     type: Phaser.AUTO,
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 600 },
-            debug: false
+            gravity: { y: 400 },
+            debug: false,
         }
     },
     scene:[Menu, Principal, Regras, GameOver, GameWiner],

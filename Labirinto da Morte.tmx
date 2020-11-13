@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="172">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="192">
  <editorsettings>
   <export target="Labirinto da Morte.json" format="json"/>
  </editorsettings>
@@ -9609,7 +9609,7 @@
  <imagelayer id="4" name="estrelado" locked="1" offsetx="-0.454545" offsety="2113.5">
   <image source="../../../../home/paulo/Pictures/céu estrelado.png" width="3240" height="1080"/>
  </imagelayer>
- <imagelayer id="17" name="espaco">
+ <imagelayer id="17" name="espaco" locked="1">
   <image source="img/fase3.png" width="3200" height="1080"/>
  </imagelayer>
  <imagelayer id="6" name="deserto" locked="1" offsetx="-2" offsety="1115">
@@ -9927,7 +9927,6 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="20" name="chefao2"/>
  <objectgroup id="13" name="inimigo">
   <object id="11" name="inimigo" type="inimigo" x="2494" y="2822">
    <point/>
