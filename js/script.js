@@ -286,7 +286,7 @@ var Principal = new Phaser.Class({
         });
 
         tempoMeteoro = this.time.addEvent({
-            delay:20000,
+            delay:16000,
             callback: meterosDown,
             loop: true,
             callbackScope: this
@@ -818,7 +818,7 @@ function deathPlayerChefao (bala1, player){
 }
 
 function caveira1Player (tiroCaveira1, player){
-    atualVidas = atualVidas - 2; 
+    atualVidas = atualVidas - 1; 
     score = score - 16;
     this.morte.play(); 
     tiroCaveira1.setVisible(false);
@@ -834,7 +834,7 @@ function caveira1Player (tiroCaveira1, player){
 }
 
 function caveira2Player (tiroCaveira2, player){
-    atualVidas = atualVidas - 2; 
+    atualVidas = atualVidas - 1; 
     score = score - 16;
     this.morte.play(); 
     tiroCaveira2.setVisible(false);
@@ -1178,15 +1178,15 @@ function meterosDown(){
     this.physics.add.collider(meteoroD10, plataforma, destroyMeteoroD10, null, this);
 
     this.physics.add.collider(meteoroD1, player, meteoroD1Player, null, this);
-    this.physics.add.collider(meteoroD2, player, meteoroD1Player, null, this);
-    this.physics.add.collider(meteoroD3, player, meteoroD1Player, null, this);
-    this.physics.add.collider(meteoroD4, player, meteoroD1Player, null, this);
-    this.physics.add.collider(meteoroD5, player, meteoroD1Player, null, this);
-    this.physics.add.collider(meteoroD6, player, meteoroD1Player, null, this);
-    this.physics.add.collider(meteoroD7, player, meteoroD1Player, null, this);
-    this.physics.add.collider(meteoroD8, player, meteoroD1Player, null, this);
-    this.physics.add.collider(meteoroD9, player, meteoroD1Player, null, this);
-    this.physics.add.collider(meteoroD10, player, meteoroD1Player, null, this);
+    this.physics.add.collider(meteoroD2, player, meteoroD2Player, null, this);
+    this.physics.add.collider(meteoroD3, player, meteoroD3Player, null, this);
+    this.physics.add.collider(meteoroD4, player, meteoroD4Player, null, this);
+    this.physics.add.collider(meteoroD5, player, meteoroD5Player, null, this);
+    this.physics.add.collider(meteoroD6, player, meteoroD6Player, null, this);
+    this.physics.add.collider(meteoroD7, player, meteoroD7Player, null, this);
+    this.physics.add.collider(meteoroD8, player, meteoroD8Player, null, this);
+    this.physics.add.collider(meteoroD9, player, meteoroD9Player, null, this);
+    this.physics.add.collider(meteoroD10, player, meteoroD10Player, null, this);
 
 }
 
