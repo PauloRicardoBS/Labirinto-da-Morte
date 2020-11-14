@@ -2,9 +2,9 @@ import Enemies from "./Enemies.js";
 
 var player, golem, score = 0, highScore = 0, tempo, tempo1, tempo2, tempo3, tempo4, fim, plataforma, fogoCanhao, chefao1, chefao2,
     chefao3, barreira, barreira2, chefao1Vida = 15, chefao2Vida = 25, chefao3Vida = 40, bala, bala1, bala2, bala3_1, bala3_2, bala3_3,
-    graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 100, tileset, groud, groud2, atualVidas = 10, map, enter,
+    graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 100, tileset, groud, groud2, atualVidas = 12, map, enter,
     botaoPlay, botaoDescricao, botaoMenu, texto,    Nerudo, tiroCaveira1, tiroCaveira2, tempoCaveira, tempoChamasD, tempoMeteoro, barCaveira1, 
-    barCaveira2, chamasD, raiz;
+    barCaveira2, chamasD, raiz, a, s;
 
 var Menu = new Phaser.Class({
     Extends: Phaser.Scene,
@@ -17,7 +17,8 @@ var Menu = new Phaser.Class({
         this.load.image('menuPlay', 'img/Menu_Inicial.png');
         this.load.image('botaoP', 'img/botao_play.png');
         this.load.image('botaoR', 'img/botao_regras.png'); 
-        this.load.image('botao', 'img/button.png');          
+        this.load.image('botao', 'img/button.png');
+                 
     }, 
     
     create(){
@@ -26,24 +27,65 @@ var Menu = new Phaser.Class({
         botaoDescricao = this.add.image(620, 395, 'botaoR').setInteractive();
         
        
+        botaoPlay.on('pointerover',() => {
+            botaoPlay.setTint(0xFF9999);
+        });
+
+        botaoPlay.on('pointerout',() => {
+            botaoPlay.clearTint();
+        });
+
         botaoPlay.on('pointerdown',() => {
             this.scene.start('Principal');
 
         });
 
+        botaoDescricao.on('pointerover',() => {
+            botaoDescricao.setTint(0x4499FF);
+        });
+
+        botaoDescricao.on('pointerout',() => {
+            botaoDescricao.clearTint();
+        });
+
         botaoDescricao.on('pointerdown',() => {
+
             this.scene.start('Regras');
 
         });
 
         enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-    },
 
+        texto = this.add.text(game.config.width/6.3, game.config.height/9, 'Pontuação:',
+            {fontSize:'40px', fill:"red"}).setOrigin(0.5);
+
+        texto = this.add.text(game.config.width/3, game.config.height/9, score,
+        {fontSize:'40px', fill:"red"}).setOrigin(0.5);
+
+        texto = this.add.text(game.config.width/1.7, game.config.height/9, 'Recorde:',
+        {fontSize:'40px', fill:"red"}).setOrigin(0.5);
+
+        texto = this.add.text(game.config.width/1.3, game.config.height/9, highScore,
+        {fontSize:'40px', fill:"red"}).setOrigin(0.5);
+       
+    },
+   
     update(){
         if(enter.isDown){
             this.scene.start('Principal');
         }
-    }
+
+        atualVidas = 12;
+        tiro = 100;
+
+        if(highScore < score){
+            highScore = score;
+        }
+
+        score = 0;
+          
+     }   
+
 })
 
 var Regras = new Phaser.Class({
@@ -114,14 +156,13 @@ var GameOver = new Phaser.Class({
 
     update(){
 
-        atualVidas = 6;
-        tiro = 65;
+        score = score;
 
         if(highScore < score){
             highScore = score;
         }
 
-        score = 0;          
+             
     }   
 })
 
@@ -167,13 +208,11 @@ var GameWiner = new Phaser.Class({
 
     update(){
 
-        atualVidas = 6;
-        tiro = 65;
+        score = score;
 
         if(highScore < score){
             highScore = score;
-        }
-        score = 0;        
+        }        
     }
     
 })
@@ -231,6 +270,9 @@ var Principal = new Phaser.Class({
     },
 
     create(){
+
+        a = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+        s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
        
         tempo = this.time.addEvent({
             delay: 2000,
@@ -347,7 +389,7 @@ var Principal = new Phaser.Class({
         this.enemies = map.createFromObjects("inimigo", "inimigo", {});
         this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);      
         
-        player = this.physics.add.sprite(250, 3050, 'paul');
+        player = this.physics.add.sprite(1250, 1250, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2256 , 'chefe1').refreshBody();
         chefao2 = this.physics.add.staticImage(165, 1180 , 'chefe2').refreshBody();
         chefao3 = this.physics.add.staticImage(3050, 220 , 'chefe3').refreshBody();
@@ -570,8 +612,9 @@ var Principal = new Phaser.Class({
                 this.pulo.play();
                 player.body.setVelocityY(-400);
             }
-        } 
+        }
         
+           
         var cam = this.cameras.main;
 
         if (cam.deadzone){
@@ -738,7 +781,7 @@ function deathPlayer (player, enemiesGroup){
     if (atualVidas == 0){
         
         player.setTint(0xff0000);
-        this.physics.pause();
+        this.physics.pause(false);
         player.anims.play('turn');
         this.scene.start('GameOver');
     }
@@ -1129,7 +1172,7 @@ function chefao1Atira(){
 }
 
 function chefao2Atira(){ 
-    bala2 = this.physics.add.sprite(chefao2.x+76, chefao2.y-1, 'balaChefao2').setVelocityX(400);
+    bala2 = this.physics.add.sprite(chefao2.x+76, chefao2.y+15, 'balaChefao2').setVelocityX(400);
     this.somChefao2.play();
     this.physics.add.collider(bala2, collider);
     this.physics.add.collider(bala2, player, deathPlayerChefao, null, this);
@@ -1216,6 +1259,7 @@ function meterosDown(){
 const config = {
 
     type: Phaser.AUTO,
+    pixelArt: true,
     physics: {
         default: 'arcade',
         arcade: {
