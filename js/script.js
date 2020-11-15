@@ -389,10 +389,10 @@ var Principal = new Phaser.Class({
         this.enemies = map.createFromObjects("inimigo", "inimigo", {});
         this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);      
         
-        player = this.physics.add.sprite(1250, 1250, 'paul');
+        player = this.physics.add.sprite(3000, 450, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2256 , 'chefe1').refreshBody();
         chefao2 = this.physics.add.staticImage(165, 1180 , 'chefe2').refreshBody();
-        chefao3 = this.physics.add.staticImage(3050, 220 , 'chefe3').refreshBody();
+        chefao3 = this.physics.add.staticImage(3050, 200 , 'chefe3').refreshBody();
         fim = this.physics.add.staticImage(3147, 300 , 'fim').refreshBody();
         groud2 = map.createStaticLayer("groud2", tileset, 0, 0);
         cursors = this.input.keyboard.createCursorKeys();
