@@ -18,6 +18,9 @@ var Menu = new Phaser.Class({
         this.load.image('botaoP', 'img/botao_play.png');
         this.load.image('botaoR', 'img/botao_regras.png'); 
         this.load.image('botao', 'img/button.png');
+       // this.load.image('gif1', 'img/gif3.png');
+        
+
                  
     }, 
     
@@ -25,6 +28,7 @@ var Menu = new Phaser.Class({
         this.add.image(500, 400, 'menuPlay');
         botaoPlay = this.add.image(460, 395, 'botaoP').setInteractive();
         botaoDescricao = this.add.image(620, 395, 'botaoR').setInteractive();
+        //var gif = this.physics.add.staticImage(400, 400, 'gif1').refreshBody();
         
        
         botaoPlay.on('pointerover',() => {
@@ -56,17 +60,17 @@ var Menu = new Phaser.Class({
 
         enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
-        texto = this.add.text(game.config.width/6.3, game.config.height/9, 'Pontuação:',
-            {fontSize:'40px', fill:"red"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/4.3, game.config.height/3.9, 'Score:',
+            {fontFamily: "Creepy", fontSize: '55px', fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/3, game.config.height/9, score,
-        {fontSize:'40px', fill:"red"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/2.6, game.config.height/3.9, score,
+            {fontFamily: "Blood Of Dracula", fontSize:'45px', fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/1.7, game.config.height/9, 'Recorde:',
-        {fontSize:'40px', fill:"red"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/1.7, game.config.height/3.9, '-  Recorde:',
+            {fontFamily: "Creepy", fontSize:'55px', fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/1.3, game.config.height/9, highScore,
-        {fontSize:'40px', fill:"red"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/1.25, game.config.height/3.9, highScore,
+            {fontFamily: "Blood Of Dracula", fontSize:'45px' ,fill:"red"}).setOrigin(0.5);
        
     },
    
@@ -83,6 +87,7 @@ var Menu = new Phaser.Class({
         }
 
         score = 0;
+        chefao1Vida = 15;
           
      }   
 
@@ -389,10 +394,10 @@ var Principal = new Phaser.Class({
         this.enemies = map.createFromObjects("inimigo", "inimigo", {});
         this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);      
         
-        player = this.physics.add.sprite(3000, 450, 'paul');
+        player = this.physics.add.sprite(150, 3080, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2256 , 'chefe1').refreshBody();
         chefao2 = this.physics.add.staticImage(165, 1180 , 'chefe2').refreshBody();
-        chefao3 = this.physics.add.staticImage(3050, 200 , 'chefe3').refreshBody();
+        chefao3 = this.physics.add.staticImage(3050, 220 , 'chefe3').refreshBody();
         fim = this.physics.add.staticImage(3147, 300 , 'fim').refreshBody();
         groud2 = map.createStaticLayer("groud2", tileset, 0, 0);
         cursors = this.input.keyboard.createCursorKeys();
@@ -522,10 +527,10 @@ var Principal = new Phaser.Class({
         
         //Acompanhando o placar e a tela
         textTela = this.add.text(20, 0,'0', {
-            fontFamily: 'pixelFont',
+            fontFamily: 'Creepy',
             fontSize: '28px',
-            backgroundColor: 'rgba(0.6, 0.5, 0.5, 0.6)',
-            fill: 'yellow'
+            backgroundColor: 'rgba(255, 255, 255, 0.5)',
+            fill: 'red'
     
         }).setScrollFactor(0);
         
@@ -636,29 +641,29 @@ var Principal = new Phaser.Class({
             if(chefao1Vida > 0){
                 textTela.setText([
                     'Recorde: ' + highScore,
-                    'Munição: ' + tiro,
+                    'Tiro: ' + tiro,
                     'Vidas: ' + atualVidas,
                     'Score: ' + score,
-                    'Chefão1: ' + chefao1Vida]);
+                    'Chefe1: ' + chefao1Vida]);
                 } 
 
             else if(chefao2Vida > 0){
                 textTela.setText([
                     'Recorde: ' + highScore,
-                    'Munição: ' + tiro,
+                    'Tiro: ' + tiro,
                     'Vidas: ' + atualVidas,
                     'Score: ' + score,
-                    'Chefão2: ' + chefao2Vida]);
+                    'Chefe2: ' + chefao2Vida]);
                 }
             
             else{
 
                 textTela.setText([
                     'Recorde: ' + highScore,
-                    'Munição: ' + tiro,
+                    'Tiro: ' + tiro,
                     'Vidas: ' + atualVidas,
                     'Score: ' + score,
-                    'Chefão3: ' + chefao3Vida]);
+                    'Chefe3: ' + chefao3Vida]);
             }
 
         }
