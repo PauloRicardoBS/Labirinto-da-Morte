@@ -60,17 +60,18 @@ var Menu = new Phaser.Class({
 
         enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
-        texto = this.add.text(game.config.width/4.3, game.config.height/3.9, 'Score:',
-            {fontFamily: "Creepy", fontSize: '55px', fill:"red"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/1.3, game.config.height/2, 'Score:',
+            {fontFamily: "Creepy", fontSize: '55px', fill:"yellow"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/2.6, game.config.height/3.9, score,
-            {fontFamily: "Blood Of Dracula", fontSize:'45px', fill:"red"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/1.05, game.config.height/1.98, score,
+            {fontFamily: "Blood Of Dracula", fontSize:'45px', fill:"yellow"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/1.7, game.config.height/3.9, '-  Recorde:',
-            {fontFamily: "Creepy", fontSize:'55px', fill:"red"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/1.26, game.config.height/1.76, 'Recorde:',
+            {fontFamily: "Creepy", fontSize:'55px', fill:"yellow"}).setOrigin(0.5);
+            
 
-        texto = this.add.text(game.config.width/1.25, game.config.height/3.9, highScore,
-            {fontFamily: "Blood Of Dracula", fontSize:'45px' ,fill:"red"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/1.05, game.config.height/1.74, highScore,
+            {fontFamily: "Blood Of Dracula", fontSize:'45px' ,fill:"yellow"}).setOrigin(0.5);
        
     },
    
@@ -110,7 +111,7 @@ var Regras = new Phaser.Class({
         botaoMenu = this.add.image(910, 645, 'botao').setInteractive();
 
         texto = this.add.text(game.config.width /1.12, game.config.height /1.19, 'Menu',
-        {fontSize:'40px', fill:"red"}).setOrigin(0.5);
+        {fontSize:'40px', fontFamily:'Creepy', fill:"red"}).setOrigin(0.5);
 
         botaoMenu.on('pointerdown',() => {
             this.scene.start('Menu');
@@ -139,20 +140,20 @@ var GameOver = new Phaser.Class({
         botaoMenu = this.add.image(910, 645, 'botao').setInteractive();
 
         texto = this.add.text(game.config.width /1.12, game.config.height /1.19, 'Menu',
-        {fontSize:'40px', fill:"red"
+        {fontSize:'40px', fontFamily: 'Creepy',fill:"red"
         }).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/6.3, game.config.height/7, 'Pontuação:',
-            {fontSize:'40px', fill:"white"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/4.3, game.config.height/7, 'Pontuação:',
+            {fontSize:'40px', fontFamily: 'Creepy', fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/3, game.config.height/7, score,
-        {fontSize:'40px', fill:"white"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/2.5, game.config.height/6.8, score,
+        {fontSize:'40px', fontFamily: 'Creepy',fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/1.7, game.config.height/7, 'Recorde:',
-        {fontSize:'40px', fill:"white"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/1.6, game.config.height/7, 'Recorde:',
+        {fontSize:'40px', fontFamily:'Creepy' ,fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/1.3, game.config.height/7, highScore,
-        {fontSize:'40px', fill:"white"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/1.3, game.config.height/6.8, highScore,
+        {fontSize:'40px', fontFamily: 'Creepy',fill:"red"}).setOrigin(0.5);
 
         botaoMenu.on('pointerdown',() => {
             this.scene.start('Menu');         
@@ -188,19 +189,20 @@ var GameWiner = new Phaser.Class({
         botaoMenu = this.add.image(890, 645, 'botao').setInteractive();
 
         texto = this.add.text(game.config.width /1.15, game.config.height /1.19, 'Menu',
-        {fontSize:'40px', fill:"red"}).setOrigin(0.5);
+        {fontSize:'40px', fontFamily: 'Creepy', fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/6.3, game.config.height/7, 'Pontuação:',
-            {fontSize:'40px', fill:"black"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/4.3, game.config.height/7, 'Pontuação:',
+            {fontSize:'40px', fontFamily: 'Creepy', fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/3, game.config.height/7, score,
-        {fontSize:'40px', fill:"black"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/2.5, game.config.height/6.8, score,
+        {fontSize:'40px', fontFamily: 'Creepy',fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/1.8, game.config.height/7, 'Recorde:',
-        {fontSize:'40px', fill:"black"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/1.6, game.config.height/7, 'Recorde:',
+        {fontSize:'40px', fontFamily:'Creepy' ,fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/1.4, game.config.height/7, highScore,
-        {fontSize:'40px', fill:"black"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/1.3, game.config.height/6.8, highScore,
+        {fontSize:'40px', fontFamily: 'Creepy',fill:"red"}).setOrigin(0.5);
+
 
         botaoMenu.on('pointerdown',() => {
             this.scene.start('Menu');         
@@ -269,7 +271,7 @@ var Principal = new Phaser.Class({
         this.load.audio('pegarObjetos', 'sons/pegar_objetos.mp3'); 
         this.load.audio('explosaoChefao1', 'sons/explosao_chefao1.mp3'); 
         this.load.audio('somChefao2', 'sons/Explosion1.mp3');
-        this.load.audio('morte', 'sons/morte.mp3'); 
+        this.load.audio('morte', 'sons/morte_.mp3'); 
         this.load.audio('derrubado', 'sons/derrubado.mp3');  
         this.load.audio('TUnico', 'sons/TUnico.mp3');            
     },
@@ -394,7 +396,7 @@ var Principal = new Phaser.Class({
         this.enemies = map.createFromObjects("inimigo", "inimigo", {});
         this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);      
         
-        player = this.physics.add.sprite(150, 3080, 'paul');
+        player = this.physics.add.sprite(150, 3020, 'paul');
         chefao1 = this.physics.add.staticImage(3000, 2256 , 'chefe1').refreshBody();
         chefao2 = this.physics.add.staticImage(165, 1180 , 'chefe2').refreshBody();
         chefao3 = this.physics.add.staticImage(3050, 220 , 'chefe3').refreshBody();
@@ -528,9 +530,9 @@ var Principal = new Phaser.Class({
         //Acompanhando o placar e a tela
         textTela = this.add.text(20, 0,'0', {
             fontFamily: 'Creepy',
-            fontSize: '28px',
+            fontSize: '30px',
             backgroundColor: 'rgba(255, 255, 255, 0.5)',
-            fill: 'red'
+            fill: 'yellow'
     
         }).setScrollFactor(0);
         
@@ -640,30 +642,21 @@ var Principal = new Phaser.Class({
         {
             if(chefao1Vida > 0){
                 textTela.setText([
-                    'Recorde: ' + highScore,
-                    'Tiro: ' + tiro,
-                    'Vidas: ' + atualVidas,
-                    'Score: ' + score,
-                    'Chefe1: ' + chefao1Vida]);
+                    'Recorde:  ' + highScore + '         Score: ' + score + '       Tiro:  ' + tiro + '       Vidas: ' + atualVidas +                    
+                    '      Desafio 1: ' + chefao1Vida]);
                 } 
 
             else if(chefao2Vida > 0){
                 textTela.setText([
-                    'Recorde: ' + highScore,
-                    'Tiro: ' + tiro,
-                    'Vidas: ' + atualVidas,
-                    'Score: ' + score,
-                    'Chefe2: ' + chefao2Vida]);
+                    'Recorde:  ' + highScore + '         Score: ' + score + '       Tiro:  ' + tiro + '       Vidas: ' + atualVidas +                    
+                    '      Desafio 2: ' + chefao2Vida]);
                 }
             
             else{
 
                 textTela.setText([
-                    'Recorde: ' + highScore,
-                    'Tiro: ' + tiro,
-                    'Vidas: ' + atualVidas,
-                    'Score: ' + score,
-                    'Chefe3: ' + chefao3Vida]);
+                    'Recorde:  ' + highScore + '         Score: ' + score + '       Tiro:  ' + tiro + '       Vidas: ' + atualVidas +                    
+                    '      Desafio 3: ' + chefao3Vida]);
             }
 
         }
