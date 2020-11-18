@@ -142,7 +142,7 @@ var GameOver = new Phaser.Class({
         texto = this.add.text(game.config.width /1.12, game.config.height /1.19, 'Menu',
         {fontSize:'40px', fontFamily: 'Creepy',fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/4.3, game.config.height/7, 'Pontuação:',
+        texto = this.add.text(game.config.width/4.3, game.config.height/7, 'Score:',
             {fontSize:'40px', fontFamily: 'Creepy', fill:"red"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/2.5, game.config.height/6.8, score,
@@ -161,7 +161,6 @@ var GameOver = new Phaser.Class({
 
     update(){
 
-        score = score;
 
         if(highScore < score){
             highScore = score;
@@ -190,7 +189,7 @@ var GameWiner = new Phaser.Class({
         texto = this.add.text(game.config.width /1.15, game.config.height /1.19, 'Menu',
         {fontSize:'40px', fontFamily: 'Creepy', fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/4.3, game.config.height/7, 'Pontuação:',
+        texto = this.add.text(game.config.width/4.3, game.config.height/7, 'Score:',
             {fontSize:'40px', fontFamily: 'Creepy', fill:"red"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/2.5, game.config.height/6.8, score,
@@ -214,7 +213,6 @@ var GameWiner = new Phaser.Class({
 
     update(){
 
-        score = score;
 
         if(highScore < score){
             highScore = score;
