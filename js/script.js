@@ -17,19 +17,13 @@ var Menu = new Phaser.Class({
         this.load.image('menuPlay', 'img/Menu_Inicial.png');
         this.load.image('botaoP', 'img/botao_play.png');
         this.load.image('botaoR', 'img/botao_regras.png'); 
-        this.load.image('botao', 'img/button.png');
-       // this.load.image('gif1', 'img/gif3.png');
-        
-
-                 
+        this.load.image('botao', 'img/button.png');                       
     }, 
     
     create(){
         this.add.image(500, 400, 'menuPlay');
         botaoPlay = this.add.image(460, 395, 'botaoP').setInteractive();
         botaoDescricao = this.add.image(620, 395, 'botaoR').setInteractive();
-        //var gif = this.physics.add.staticImage(400, 400, 'gif1').refreshBody();
-        
        
         botaoPlay.on('pointerover',() => {
             botaoPlay.setTint(0xFF9999);
