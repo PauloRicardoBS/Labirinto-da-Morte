@@ -188,19 +188,19 @@ var GameWiner = new Phaser.Class({
         botaoMenu = this.add.image(890, 645, 'botao').setInteractive();
 
         texto = this.add.text(game.config.width /1.15, game.config.height /1.19, 'Menu',
-        {fontSize:'40px', fontFamily: 'Creepy', fill:"white"}).setOrigin(0.5);
+        {fontSize:'40px', fontFamily: 'Creepy', fill:"red"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/4.3, game.config.height/7, 'Pontuação:',
-            {fontSize:'40px', fontFamily: 'Creepy', fill:"white"}).setOrigin(0.5);
+            {fontSize:'40px', fontFamily: 'Creepy', fill:"red"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/2.5, game.config.height/6.8, score,
-        {fontSize:'40px', fontFamily: 'Creepy',fill:"white"}).setOrigin(0.5);
+        {fontSize:'40px', fontFamily: 'Creepy',fill:"red"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/1.6, game.config.height/7, 'Recorde:',
-        {fontSize:'40px', fontFamily:'Creepy' ,fill:"white"}).setOrigin(0.5);
+        {fontSize:'40px', fontFamily:'Creepy' ,fill:"red"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/1.3, game.config.height/6.8, highScore,
-        {fontSize:'40px', fontFamily: 'Creepy',fill:"white"}).setOrigin(0.5);
+        {fontSize:'40px', fontFamily: 'Creepy',fill:"red"}).setOrigin(0.5);
 
 
         botaoMenu.on('pointerdown',() => {
