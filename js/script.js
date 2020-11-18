@@ -335,7 +335,7 @@ var Principal = new Phaser.Class({
         });
 
         tempoMeteoro = this.time.addEvent({
-            delay:30000,
+            delay:18000,
             callback: meterosDown,
             loop: true,
             callbackScope: this
@@ -395,7 +395,7 @@ var Principal = new Phaser.Class({
         this.enemies = map.createFromObjects("inimigo", "inimigo", {});
         this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);      
         
-        player = this.physics.add.sprite(790, 2620, 'paul');
+        player = this.physics.add.sprite(150, 3020, 'paul').setGravityY(500);
         chefao1 = this.physics.add.staticImage(3000, 2256 , 'chefe1').refreshBody();
         chefao2 = this.physics.add.staticImage(165, 1180 , 'chefe2').refreshBody();
         chefao3 = this.physics.add.staticImage(3050, 220 , 'chefe3').refreshBody();
@@ -563,7 +563,7 @@ var Principal = new Phaser.Class({
         if(cursors.left.isDown && cursors.space.isDown && playerPodeAtirar == 1){ 
             
             bala = this.physics.add.sprite(player.x-37, player.y+3, 'bala');
-            bala.setVelocityX(-1800);
+            bala.setVelocityX(-1800).setGravityY(400);
             playerPodeAtirar = 0;  
             this.gun.play();          
             tiro = tiro -1;
@@ -589,7 +589,7 @@ var Principal = new Phaser.Class({
         if(cursors.right.isDown && cursors.space.isDown && playerPodeAtirar == 1){
             
             bala = this.physics.add.sprite(player.x+39, player.y+5, 'bala');
-            bala.setVelocityX(1800);
+            bala.setVelocityX(1800).setGravityY(400);
             playerPodeAtirar = 0;
             this.gun.play();
             tiro = tiro -1;
@@ -616,7 +616,7 @@ var Principal = new Phaser.Class({
             
             if(player.body.onFloor()){
                 this.pulo.play();
-                player.body.setVelocityY(-400);
+                player.body.setVelocityY(-450);
             }
         }
         
@@ -1161,7 +1161,7 @@ function destroyMeteoroD10(meteoroD10){
 }
 
 function chefao1Atira(){ 
-    bala1 = this.physics.add.sprite(chefao1.x-76, chefao1.y-4, 'balaChefao1').setVelocityX(-400);
+    bala1 = this.physics.add.sprite(chefao1.x-76, chefao1.y-4, 'balaChefao1').setVelocityX(-400).setGravityY(400);
     this.somChefao1.play();
     this.physics.add.collider(bala1, collider);
     this.physics.add.collider(bala1, player, deathPlayerChefao, null, this);
@@ -1169,7 +1169,7 @@ function chefao1Atira(){
 }
 
 function chefao2Atira(){ 
-    bala2 = this.physics.add.sprite(chefao2.x+76, chefao2.y+15, 'balaChefao2').setVelocityX(400);
+    bala2 = this.physics.add.sprite(chefao2.x+76, chefao2.y+15, 'balaChefao2').setVelocityX(400).setGravityY(400);
     this.somChefao2.play();
     this.physics.add.collider(bala2, collider);
     this.physics.add.collider(bala2, player, deathPlayerChefao, null, this);
@@ -1177,7 +1177,7 @@ function chefao2Atira(){
 }
 
 function chefao3Atira3_1(){ 
-    bala3_1 = this.physics.add.sprite(chefao3.x-40, chefao3.y-114, 'balaChefao3_1').setVelocityX(-400);
+    bala3_1 = this.physics.add.sprite(chefao3.x-40, chefao3.y-114, 'balaChefao3_1').setVelocityX(-400).setGravityY(400);
     this.somChefao2.play();
     this.physics.add.collider(bala3_1, collider, destroyBala3_3);
     this.physics.add.collider(bala3_1, player, deathPlayerChefao, null, this);
@@ -1185,22 +1185,22 @@ function chefao3Atira3_1(){
 }
 
 function chefao3Atira3_2(){ 
-    bala3_2 = this.physics.add.sprite(chefao3.x-120, chefao3.y, 'balaChefao3_2').setVelocityX(-600);
+    bala3_2 = this.physics.add.sprite(chefao3.x-120, chefao3.y, 'balaChefao3_2').setVelocityX(-600).setGravityY(400);
     this.somChefao3.play();
     this.physics.add.collider(bala3_2, collider, destroyBala3_3);
     this.physics.add.collider(bala3_2, player, deathPlayerChefao, null, this);       
 }
 
 function chefao3Atira3_3(){ 
-    bala3_3 = this.physics.add.sprite(chefao3.x-90, chefao3.y+85, 'balaChefao3_3').setVelocityX(-400);
+    bala3_3 = this.physics.add.sprite(chefao3.x-90, chefao3.y+85, 'balaChefao3_3').setVelocityX(-400).setGravityY(400);
     this.somChefao2.play();
     this.physics.add.collider(bala3_3, collider, destroyBala3_3);
     this.physics.add.collider(bala3_3, player, deathPlayerChefao, null, this);    
 }
 
 function caveira(){ 
-    tiroCaveira1 = this.physics.add.sprite(20, 1921, 'caveiraR').setVelocityX(450);
-    tiroCaveira2 = this.physics.add.sprite(3042,1921, 'caveiraL').setVelocityX(-500); 
+    tiroCaveira1 = this.physics.add.sprite(20, 1921, 'caveiraR').setVelocityX(450).setGravityY(400);
+    tiroCaveira2 = this.physics.add.sprite(3042,1921, 'caveiraL').setVelocityX(-500).setGravityY(400); 
     this.physics.add.collider(tiroCaveira1, collider);
     this.physics.add.collider(tiroCaveira2, collider);
     this.physics.add.collider(tiroCaveira1, barCaveira2, caveiraBarreira1, null, this);
@@ -1211,22 +1211,22 @@ function caveira(){
 }
 
 function chamasDown(){ 
-    chamasD = this.physics.add.sprite(1910, 1488, 'chamasD');
+    chamasD = this.physics.add.sprite(1910, 1488, 'chamasD').setGravityY(400);
     this.physics.add.collider(chamasD, raiz, destroychamasD, null, this); 
     this.physics.add.collider(chamasD, player, chamaDPlayer, null, this);
 }
 
 function meterosDown(){ 
-    var meteoroD1 = this.physics.add.sprite(2181, 863, 'meteoro').setVelocityY(-50);
-    var meteoroD2 = this.physics.add.sprite(1512, 345, 'meteoro').setVelocityY(-50);
-    var meteoroD3 = this.physics.add.sprite(1000, 360, 'meteoro').setVelocityY(-50);
-    var meteoroD4 = this.physics.add.sprite(1890, 1013, 'meteoro').setVelocityY(-50);
-    var meteoroD5 = this.physics.add.sprite(293, 969, 'meteoro').setVelocityY(-50);
-    var meteoroD6 = this.physics.add.sprite(827, 915, 'meteoro').setVelocityY(-50);
-    var meteoroD7 = this.physics.add.sprite(3027, 606, 'meteoro').setVelocityY(-50);
-    var meteoroD8 = this.physics.add.sprite(2715, 942, 'meteoro').setVelocityY(-50);
-    var meteoroD9 = this.physics.add.sprite(1430, 960, 'meteoro').setVelocityY(-50);
-    var meteoroD10 = this.physics.add.sprite(427, 848, 'meteoro').setVelocityY(-50);
+    var meteoroD1 = this.physics.add.sprite(2181, 863, 'meteoro').setGravityY(100);
+    var meteoroD2 = this.physics.add.sprite(1512, 345, 'meteoro').setGravityY(100);
+    var meteoroD3 = this.physics.add.sprite(1000, 360, 'meteoro').setGravityY(100);
+    var meteoroD4 = this.physics.add.sprite(1890, 1013, 'meteoro').setGravityY(100);
+    var meteoroD5 = this.physics.add.sprite(293, 969, 'meteoro').setGravityY(100);
+    var meteoroD6 = this.physics.add.sprite(827, 915, 'meteoro').setGravityY(100);
+    var meteoroD7 = this.physics.add.sprite(3027, 606, 'meteoro').setGravityY(100);
+    var meteoroD8 = this.physics.add.sprite(2715, 942, 'meteoro').setGravityY(100);
+    var meteoroD9 = this.physics.add.sprite(1430, 960, 'meteoro').setGravityY(100);
+    var meteoroD10 = this.physics.add.sprite(427, 848, 'meteoro').setGravityY(100);
     
 
     this.physics.add.collider(meteoroD1, plataforma, destroyMeteoroD1, null, this);
@@ -1260,8 +1260,8 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 400 },
-            debug: false,
+            //gravity: { y: 400 },
+            debug: false
         }
     },
     scene:[Menu, Principal, Regras, GameOver, GameWiner],
