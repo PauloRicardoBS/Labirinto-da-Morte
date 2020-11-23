@@ -4,7 +4,7 @@ var player, golem, score = 0, highScore = 0, tempo, tempo1, tempo2, tempo3, temp
     chefao3, barreira, barreira2, chefao1Vida = 15, chefao2Vida = 25, chefao3Vida = 40, bala, bala1, bala2, bala3_1, bala3_2, bala3_3,
     graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 100, tileset, groud, groud2, atualVidas = 12, map, enter,
     botaoPlay, botaoDescricao, botaoMenu, texto,    Nerudo, tiroCaveira1, tiroCaveira2, tempoCaveira, tempoChamasD, tempoMeteoro, barCaveira1, 
-    barCaveira2, chamasD, raiz, a, s;
+    barCaveira2, chamasD, raiz, a, s, fs;
 
 var Menu = new Phaser.Class({
     Extends: Phaser.Scene,
@@ -66,6 +66,8 @@ var Menu = new Phaser.Class({
 
         texto = this.add.text(game.config.width/1.05, game.config.height/1.74, highScore,
             {fontFamily: "Blood Of Dracula", fontSize:'45px' ,fill:"white"}).setOrigin(0.5);
+
+        
        
     },
    
@@ -150,16 +152,17 @@ var GameOver = new Phaser.Class({
 
         botaoMenu.on('pointerdown',() => {
             this.scene.start('Menu');         
-        });         
+        }); 
+        
+        cadastrarScore();        
+        
     },
 
     update(){
 
-
         if(highScore < score){
             highScore = score;
         }
-
              
     }   
 })
@@ -195,18 +198,18 @@ var GameWiner = new Phaser.Class({
         texto = this.add.text(game.config.width/1.3, game.config.height/6.8, highScore,
         {fontSize:'40px', fontFamily: 'Creepy',fill:"red"}).setOrigin(0.5);
 
-
         botaoMenu.on('pointerdown',() => {
             this.scene.start('Menu');         
         });         
 
         botaoMenu.on('pointerdown',() => {
             this.scene.start('Menu');
-        });         
+        });  
+        
+        cadastrarScore();
     },
 
     update(){
-
 
         if(highScore < score){
             highScore = score;
@@ -1245,6 +1248,35 @@ function meterosDown(){
 
 }
 
+
+
+(function(){
+  
+        var firebaseConfig = {
+            apiKey: "AIzaSyBY4PwMaqVgX11T3dFc93D7HDQjvANwJKY",
+            authDomain: "labirinto-da-morte.firebaseapp.com",
+            databaseURL: "https://labirinto-da-morte.firebaseio.com",
+            projectId: "labirinto-da-morte",
+            storageBucket: "labirinto-da-morte.appspot.com",
+            messagingSenderId: "398007823211",
+            appId: "0:398007823212:web:8732a4020775a930a12149",
+            measurementId: "G-E55NYWVJ9N"
+        };
+  
+        firebase.initializeApp(firebaseConfig);
+
+    })()
+
+    var refCadastro = firebase.database().ref();
+
+    function cadastrarScore(firebaseConfig){
+        score;
+
+        var placar = refCadastro.push({
+            score: score
+        });
+    }
+
 const config = {
 
     type: Phaser.AUTO,
@@ -1252,7 +1284,6 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            //gravity: { y: 400 },
             debug: false
         }
     },
