@@ -525,7 +525,7 @@ var Principal = new Phaser.Class({
         //Acompanhando o placar e a tela
         textTela = this.add.text(20, 0,'0', {
             fontFamily: 'Creepy',
-            fontSize: '35px',
+            fontSize: '25px',
             backgroundColor: 'rgba(255, 255, 255, 0.5)',
             fill: 'red'
     
