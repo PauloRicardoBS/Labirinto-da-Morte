@@ -2,9 +2,9 @@ import Enemies from "./Enemies.js";
 
 var player, golem, score = 0, highScore = 0, tempo, tempo1, tempo2, tempo3, tempo4, fim, plataforma, fogoCanhao, chefao1, chefao2,
     chefao3, barreira, barreira2, chefao1Vida = 15, chefao2Vida = 25, chefao3Vida = 40, bala, bala1, bala2, bala3_1, bala3_2, bala3_3,
-    graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 100, tileset, groud, groud2, atualVidas = 12, map, enter,
+    graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 100, tileset, groud, groud2, atualVidas = 2, map, enter,
     botaoPlay, botaoDescricao, botaoMenu, texto,    Nerudo, tiroCaveira1, tiroCaveira2, tempoCaveira, tempoChamasD, tempoMeteoro, barCaveira1, 
-    barCaveira2, chamasD, raiz, a, s;
+    barCaveira2, chamasD, raiz, Jogador;
 
 var Menu = new Phaser.Class({
     Extends: Phaser.Scene,
@@ -24,6 +24,7 @@ var Menu = new Phaser.Class({
         this.add.image(500, 400, 'menuPlay');
         botaoPlay = this.add.image(460, 395, 'botaoP').setInteractive();
         botaoDescricao = this.add.image(620, 395, 'botaoR').setInteractive();
+    
        
         botaoPlay.on('pointerover',() => {
             botaoPlay.setTint(0xFF9999);
@@ -35,6 +36,9 @@ var Menu = new Phaser.Class({
 
         botaoPlay.on('pointerdown',() => {
             this.scene.start('Principal');
+            Jogador = document.getElementById("txtInput").value;
+            document.getElementById("popup").style.display = "none"; 
+            document.getElementById("placar").style.display = "none";
 
         });
 
@@ -47,10 +51,9 @@ var Menu = new Phaser.Class({
         });
 
         botaoDescricao.on('pointerdown',() => {
-
             this.scene.start('Regras');
-
         });
+
 
         enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
@@ -66,6 +69,8 @@ var Menu = new Phaser.Class({
 
         texto = this.add.text(game.config.width/1.05, game.config.height/1.74, highScore,
             {fontFamily: "Blood Of Dracula", fontSize:'45px' ,fill:"white"}).setOrigin(0.5);
+
+        
        
     },
    
@@ -74,13 +79,11 @@ var Menu = new Phaser.Class({
             this.scene.start('Principal');
         }
 
-        atualVidas = 12;
+        atualVidas = 2;
         tiro = 100;
 
-        if(highScore < score){
-            highScore = score;
-        }
-
+        highScore = score;
+        
         score = 0;
         chefao1Vida = 15;
           
@@ -149,17 +152,21 @@ var GameOver = new Phaser.Class({
         {fontSize:'40px', fontFamily: 'Creepy',fill:"red"}).setOrigin(0.5);
 
         botaoMenu.on('pointerdown',() => {
-            this.scene.start('Menu');         
-        });         
+            this.scene.start('Menu');
+            document.getElementById("popup").style.display = "block"; 
+            document.getElementById("placar").style.display = "block";
+                    
+        }); 
+        
+        cadastrarScore();  
+        
     },
 
     update(){
 
-
         if(highScore < score){
             highScore = score;
         }
-
              
     }   
 })
@@ -195,18 +202,16 @@ var GameWiner = new Phaser.Class({
         texto = this.add.text(game.config.width/1.3, game.config.height/6.8, highScore,
         {fontSize:'40px', fontFamily: 'Creepy',fill:"red"}).setOrigin(0.5);
 
-
         botaoMenu.on('pointerdown',() => {
-            this.scene.start('Menu');         
+            this.scene.start('Menu'); 
+            document.getElementById("popup").style.display = "block";        
         });         
 
-        botaoMenu.on('pointerdown',() => {
-            this.scene.start('Menu');
-        });         
+        
+        cadastrarScore();
     },
 
     update(){
-
 
         if(highScore < score){
             highScore = score;
@@ -214,6 +219,8 @@ var GameWiner = new Phaser.Class({
     }
     
 })
+
+
 
 var Principal = new Phaser.Class({
 
@@ -268,9 +275,6 @@ var Principal = new Phaser.Class({
     },
 
     create(){
-
-        a = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
-        s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
        
         tempo = this.time.addEvent({
             delay: 2000,
@@ -521,7 +525,7 @@ var Principal = new Phaser.Class({
         //Acompanhando o placar e a tela
         textTela = this.add.text(20, 0,'0', {
             fontFamily: 'Creepy',
-            fontSize: '35px',
+            fontSize: '25px',
             backgroundColor: 'rgba(255, 255, 255, 0.5)',
             fill: 'red'
     
@@ -633,8 +637,8 @@ var Principal = new Phaser.Class({
         {
             if(chefao1Vida > 0){
                 textTela.setText([
-                    'Recorde:  ' + highScore + '         Score: ' + score + '       Tiro:  ' + tiro + '       Vidas: ' + atualVidas +                    
-                    '      Desafio 1: ' + chefao1Vida]);
+                    'Player: ' + Jogador + '   Recorde:  ' + highScore + '   Score:   ' + score + '   Tiro: ' + tiro + '   Vidas:  ' + atualVidas +                    
+                    '    Desafio 1: ' + chefao1Vida]);
                 } 
 
             else if(chefao2Vida > 0){
@@ -1245,6 +1249,41 @@ function meterosDown(){
 
 }
 
+Jogador = document.getElementById('txtInput').value;
+  
+(function (){
+  
+        var firebaseConfig = {
+            apiKey: "AIzaSyBY4PwMaqVgX11T3dFc93D7HDQjvANwJKY",
+            authDomain: "labirinto-da-morte.firebaseapp.com",
+            databaseURL: "https://labirinto-da-morte.firebaseio.com",
+            projectId: "labirinto-da-morte",
+            storageBucket: "labirinto-da-morte.appspot.com",
+            messagingSenderId: "398007823211",
+            appId: "0:398007823212:web:8732a4020775a930a12149",
+            measurementId: "G-E55NYWVJ9N"
+        };
+  
+        firebase.initializeApp(firebaseConfig);
+
+    })()
+
+    var refCadastro = firebase.database().ref("Jogadores");
+
+    function cadastrarScore(firebaseConfig){
+        Jogador;
+        score;
+        
+        var placar = refCadastro.push({
+
+            Jogador: Jogador ,
+            score: score * (-1)
+            
+        });
+    }
+
+    
+
 const config = {
 
     type: Phaser.AUTO,
@@ -1252,7 +1291,6 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            //gravity: { y: 400 },
             debug: false
         }
     },

@@ -1,15 +1,79 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Labirinto da Morte</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Labirinto da Morte</title>
 
-<body>
+        <style>
+
+            .popup{
+                position: absolute;
+                margin-top: 19%;
+                margin-left: 37%;
+                margin-right: 0%;
+                width: 350px;
+                height: 280px;
+                padding: 25px;
+                border:yellow;
+                background: transparent;
+                display: block;
+            }
+
+            .placar{
+                position: absolute;
+                margin-top: 19%;
+                margin-left: 77%;
+                margin-right: 0%;
+                width: 350px;
+                height: 280px;
+                padding: 25px;
+                border:yellow;
+                background: transparent;
+                display: block;
+            }
+
+
+        
+        </style>  
+
+        <script type="text/javascript">
+
+            function fechar(){
+                document.getElementById("popup").style.display = "none"
+            }
+
+        </script>
+        
+    </head>
+
+    <body>
+
+                
+        <script  src="js/phaser.min.js"></script>
+        <script  type = "module" src="js/script.js"></script>
+
+        <div id="popup" class="popup">
+            
+            <input type="text" placeholder="Digite seu nome de Jogador" id="txtInput"  style="color:rgb(214, 85, 85); padding:5px;"/>
+            
+        </div>
+
+        <div id="placar" class="placar">
+
+            <ul>
+                <li>
+                    <a href="placar.html">Placar</a>
+                </li>
+            </ul>            
+            
+        </div>
     
-    <script  src="js/phaser.min.js"></script>
-    <script  type = "module" src="js/script.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+
+        
     
-</body>
+    </body>
+
 </html>
