@@ -77,7 +77,7 @@ var Menu = new Phaser.Class({
             document.getElementById("placar").style.display = "none";
         }
 
-        atualVidas = 1;
+        atualVidas = 10;
         tiro = 100;
 
         
@@ -263,10 +263,9 @@ var Principal = new Phaser.Class({
         this.load.image('barreira2', 'img/barreira2.png');
         this.load.image('caveiraBarreira1', 'img/barreiraCaveira1.png');
         this.load.image('caveiraBarreira2', 'img/barreiraCaveira2.png');
-        this.load.image('chamasD', 'img/chamasD.png');
+        this.load.image('chamasD', 'img/pedra.png');
         this.load.image('bala', "img/bala.png");
         this.load.image('bola_fogo', "img/bola_fogo.png");
-        this.load.spritesheet('pedra', "img/pedra.png",{frameWidth: 49, frameHeight: 48});
         this.load.image('balaChefao1', "img/bala_chefao1.png");
         this.load.image('balaChefao2', "img/balaChefao2.png");
         this.load.image('balaChefao3_1', "img/fogo_canhao.png");
@@ -408,7 +407,7 @@ var Principal = new Phaser.Class({
         this.enemies = map.createFromObjects("inimigo", "inimigo", {});
         this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);      
         
-        player = this.physics.add.sprite(150, 3020, 'paul').setGravityY(500);
+        player = this.physics.add.sprite(2050, 220, 'paul').setGravityY(500);
         chefao1 = this.physics.add.staticImage(3000, 2256 , 'chefe1').refreshBody();
         chefao2 = this.physics.add.staticImage(165, 1180 , 'chefe2').refreshBody();
         chefao3 = this.physics.add.staticImage(3050, 220 , 'chefe3').refreshBody();
