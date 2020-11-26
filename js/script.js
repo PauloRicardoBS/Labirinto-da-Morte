@@ -4,7 +4,7 @@ var player, golem, score = 0, highScore = 0, tempo, tempo1, tempo2, tempo3, temp
     chefao3, barreira, barreira2, chefao1Vida = 15, chefao2Vida = 25, chefao3Vida = 40, bala, bala1, bala2, bala3_1, bala3_2, bala3_3,
     graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 100, tileset, groud, groud2, atualVidas, map, enter,
     botaoPlay, botaoDescricao, botaoMenu, texto,    Nerudo, tiroCaveira1, tiroCaveira2, tempoCaveira, tempoChamasD, tempoMeteoro, barCaveira1, 
-    barCaveira2, chamasD, raiz, Jogador;
+    barCaveira2, chamasD, raiz, Jogador, hiscore;
 
 var Menu = new Phaser.Class({
     Extends: Phaser.Scene,
@@ -81,7 +81,8 @@ var Menu = new Phaser.Class({
         tiro = 100;
 
         
-        score = score;
+        hiscore = score;
+        score = 0;
         chefao1Vida = 15;
           
      }   
@@ -659,14 +660,14 @@ var Principal = new Phaser.Class({
 
             else if(chefao2Vida > 0){
                 textTela.setText([
-                    'Recorde:  ' + highScore + '         Score: ' + score + '       Tiro:  ' + tiro + '       Vidas: ' + atualVidas +                    
+                    'Player: ' + Jogador + '   Recorde:  ' + highScore + '         Score: ' + score + '       Tiro:  ' + tiro + '       Vidas: ' + atualVidas +                    
                     '      Desafio 2: ' + chefao2Vida]);
                 }
             
             else{
 
                 textTela.setText([
-                    'Recorde:  ' + highScore + '         Score: ' + score + '       Tiro:  ' + tiro + '       Vidas: ' + atualVidas +                    
+                    'Player: ' + Jogador + '   Recorde:  ' + highScore + '         Score: ' + score + '       Tiro:  ' + tiro + '       Vidas: ' + atualVidas +                    
                     '      Desafio 3: ' + chefao3Vida]);
             }
 
