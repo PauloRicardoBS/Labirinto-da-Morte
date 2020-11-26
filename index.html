@@ -2,7 +2,7 @@
 <html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=auto">
         <title>Labirinto da Morte</title>
 
         <style>
@@ -10,44 +10,29 @@
             .popup{
                 position:absolute;
                 margin-top: 19%;
-                margin-left: 35%;
-                margin-right: 0%;
+                margin-left: 30%;
+                
                 width: 350px;
-                height: 100%;
+                height: auto;
                 padding: 25px;
-                border:yellow;
                 background: transparent;
                 display: block;
 
             }
 
             .placar{
-                position:absolute;
+                position: absolute;
                 margin-top: 17.5%;
                 margin-left: 60%;
                 margin-right: 0%;
                 width: 310px;
-                height: 110px;
-                padding: 21px;
-                background:fixed;
+                height: auto;
+                padding: 21px 10px;
+                background:transparent;
                 display: block;
-                
+                    
             }
-
-            .userLista{
-                position:absolute;
-                margin-top: 17.15%;
-                margin-left: 70%;
-                margin-right: 0%;
-                width: 350px;
-                height: 480px;
-                padding: 25px;
-                background:fixed;
-                display: block;
-            }
-
-
-        
+       
         </style>  
 
         <script type="text/javascript">
@@ -62,11 +47,7 @@
 
     <body>
 
-        <ul id='lista' class='lista'> 
-
-        </ul>
-
-                      
+                             
         <script  src="js/phaser.min.js"></script>
         <script  type = "module" src="js/script.js"></script>
         <script  src="js/placar.js"></script>
@@ -85,8 +66,10 @@
             <ul>
                                                      
                     <form method="get" action="placar.html">
-                        <button type="submit" style="color:rgba(196, 46, 9, 0.938); padding:2.5px; font-family: Rocky AOE; font-size:21px">RECORDES</button>
-                     </form>
+
+                        <button method= "get" action = "placar.html" type="submit" style="color:rgba(196, 46, 9, 0.938); font-family: Rocky AOE; font-size:21px">RECORDES</button>
+                   
+                    </form>
               
             </ul>            
             
