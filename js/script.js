@@ -2,7 +2,7 @@ import Enemies from "./Enemies.js";
 
 var player, golem, score = 0, highScore = 0, tempo, tempo1, tempo2, tempo3, tempo4, fim, plataforma, fogoCanhao, chefao1, chefao2,
     chefao3, barreira, barreira2, chefao1Vida = 15, chefao2Vida = 25, chefao3Vida = 40, bala, bala1, bala2, bala3_1, bala3_2, bala3_3,
-    graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 100, tileset, groud, groud2, atualVidas = 2, map, enter,
+    graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 100, tileset, groud, groud2, atualVidas = 10, map, enter,
     botaoPlay, botaoDescricao, botaoMenu, texto,    Nerudo, tiroCaveira1, tiroCaveira2, tempoCaveira, tempoChamasD, tempoMeteoro, barCaveira1, 
     barCaveira2, chamasD, raiz, Jogador;
 
@@ -77,7 +77,7 @@ var Menu = new Phaser.Class({
             document.getElementById("placar").style.display = "none";
         }
 
-        atualVidas = 2;
+        atualVidas = 10;
         tiro = 100;
 
         highScore = score;
