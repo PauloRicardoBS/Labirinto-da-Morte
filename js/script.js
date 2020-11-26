@@ -407,7 +407,7 @@ var Principal = new Phaser.Class({
         this.enemies = map.createFromObjects("inimigo", "inimigo", {});
         this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies);      
         
-        player = this.physics.add.sprite(2050, 220, 'paul').setGravityY(500);
+        player = this.physics.add.sprite(150, 3020, 'paul').setGravityY(500);
         chefao1 = this.physics.add.staticImage(3000, 2256 , 'chefe1').refreshBody();
         chefao2 = this.physics.add.staticImage(165, 1180 , 'chefe2').refreshBody();
         chefao3 = this.physics.add.staticImage(3050, 220 , 'chefe3').refreshBody();
