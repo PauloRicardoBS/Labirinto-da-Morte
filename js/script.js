@@ -2,7 +2,7 @@ import Enemies from "./Enemies.js";
 
 var player, golem, score = 0, highScore = 0, tempo, tempo1, tempo2, tempo3, tempo4, fim, plataforma, fogoCanhao, chefao1, chefao2,
     chefao3, barreira, barreira2, chefao1Vida = 15, chefao2Vida = 25, chefao3Vida = 40, bala, bala1, bala2, bala3_1, bala3_2, bala3_3,
-    graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 100, tileset, groud, groud2, atualVidas = 10, map, enter,
+    graphics, cursors, collider, camera, playerPodeAtirar = 1, textTela, tiro = 100, tileset, groud, groud2, atualVidas, map, enter,
     botaoPlay, botaoDescricao, botaoMenu, texto,    Nerudo, tiroCaveira1, tiroCaveira2, tempoCaveira, tempoChamasD, tempoMeteoro, barCaveira1, 
     barCaveira2, chamasD, raiz, Jogador;
 
@@ -77,12 +77,11 @@ var Menu = new Phaser.Class({
             document.getElementById("placar").style.display = "none";
         }
 
-        atualVidas = 10;
+        atualVidas = 1;
         tiro = 100;
 
-        highScore = score;
         
-        score = 0;
+        score = score;
         chefao1Vida = 15;
           
      }   
@@ -149,17 +148,12 @@ var GameOver = new Phaser.Class({
         texto = this.add.text(game.config.width /1.12, game.config.height /1.19, 'Menu',
         {fontSize:'40px', fontFamily: 'Bloody Office',fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/4.3, game.config.height/7, 'Score:',
-            {fontSize:'40px', fontFamily: 'Bloody Office', fill:"red"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/2.4, game.config.height/7, 'Score:',
+            {fontSize:'50px', fontFamily: 'Bloody Office', fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/2.5, game.config.height/6.8, score,
-        {fontSize:'40px', fontFamily: 'Bloody Office',fill:"red"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/1.7, game.config.height/6.8, score,
+        {fontSize:'50px', fontFamily: 'Bloody Office',fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/1.6, game.config.height/7, 'Recorde:',
-        {fontSize:'40px', fontFamily:'Bloody Office' ,fill:"red"}).setOrigin(0.5);
-
-        texto = this.add.text(game.config.width/1.3, game.config.height/6.8, highScore,
-        {fontSize:'40px', fontFamily: 'Bloody Office',fill:"red"}).setOrigin(0.5);
 
         botaoMenu.on('pointerdown',() => {
             this.scene.start('Menu');
@@ -214,12 +208,6 @@ var GameWiner = new Phaser.Class({
             {fontSize:'40px', fontFamily: 'Bloody Office', fill:"red"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/2.5, game.config.height/6.8, score,
-        {fontSize:'40px', fontFamily: 'Bloody Office',fill:"red"}).setOrigin(0.5);
-
-        texto = this.add.text(game.config.width/1.6, game.config.height/7, 'Recorde:',
-        {fontSize:'40px', fontFamily:'Bloody Office' ,fill:"red"}).setOrigin(0.5);
-
-        texto = this.add.text(game.config.width/1.3, game.config.height/6.8, highScore,
         {fontSize:'40px', fontFamily: 'Bloody Office',fill:"red"}).setOrigin(0.5);
 
         botaoMenu.on('pointerdown',() => {
