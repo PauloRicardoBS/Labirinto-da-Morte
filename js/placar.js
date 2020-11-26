@@ -17,7 +17,7 @@
     })()
 
 
-firebase.database().ref('Jogadores').orderByChild('score').on('value', function (snapshot){
+firebase.database().ref('Jogadores').orderByChild('score').limitToFirst(10).on('value', function (snapshot){
     userList.innerHTML = [];
 
     snapshot.forEach( function (item) {

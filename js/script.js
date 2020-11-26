@@ -57,26 +57,22 @@ var Menu = new Phaser.Class({
 
         enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
-        texto = this.add.text(game.config.width/1.3, game.config.height/2, 'Score:',
-            {fontFamily: "Creepy", fontSize: '55px', fill:"white"}).setOrigin(0.5);
+        texto = this.add.text(game.config.width/2.2, game.config.height/1.52, 'Score:',
+            {fontFamily: "Bloody Office", fontSize: '55px', fill:"red"}).setOrigin(0.5);
 
-        texto = this.add.text(game.config.width/1.05, game.config.height/1.98, score,
-            {fontFamily: "Blood Of Dracula", fontSize:'45px', fill:"white"}).setOrigin(0.5);
-
-        texto = this.add.text(game.config.width/1.26, game.config.height/1.76, 'Recorde:',
-            {fontFamily: "Creepy", fontSize:'55px', fill:"white"}).setOrigin(0.5);
-            
-
-        texto = this.add.text(game.config.width/1.05, game.config.height/1.74, highScore,
-            {fontFamily: "Blood Of Dracula", fontSize:'45px' ,fill:"white"}).setOrigin(0.5);
-
-        
+        texto = this.add.text(game.config.width/1.6, game.config.height/1.52, score,
+            {fontFamily: "Bloody Office", fontSize:'65px', fill:"red"}).setOrigin(0.5);
+       
        
     },
    
     update(){
         if(enter.isDown){
+
             this.scene.start('Principal');
+            Jogador = document.getElementById("txtInput").value;
+            document.getElementById("popup").style.display = "none"; 
+            document.getElementById("placar").style.display = "none";
         }
 
         atualVidas = 2;
@@ -137,19 +133,19 @@ var GameOver = new Phaser.Class({
         botaoMenu = this.add.image(910, 645, 'botao').setInteractive();
 
         texto = this.add.text(game.config.width /1.12, game.config.height /1.19, 'Menu',
-        {fontSize:'40px', fontFamily: 'Creepy',fill:"red"}).setOrigin(0.5);
+        {fontSize:'40px', fontFamily: 'Bloody Office',fill:"red"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/4.3, game.config.height/7, 'Score:',
-            {fontSize:'40px', fontFamily: 'Creepy', fill:"red"}).setOrigin(0.5);
+            {fontSize:'40px', fontFamily: 'Bloody Office', fill:"red"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/2.5, game.config.height/6.8, score,
-        {fontSize:'40px', fontFamily: 'Creepy',fill:"red"}).setOrigin(0.5);
+        {fontSize:'40px', fontFamily: 'Bloody Office',fill:"red"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/1.6, game.config.height/7, 'Recorde:',
-        {fontSize:'40px', fontFamily:'Creepy' ,fill:"red"}).setOrigin(0.5);
+        {fontSize:'40px', fontFamily:'Bloody Office' ,fill:"red"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/1.3, game.config.height/6.8, highScore,
-        {fontSize:'40px', fontFamily: 'Creepy',fill:"red"}).setOrigin(0.5);
+        {fontSize:'40px', fontFamily: 'Bloody Office',fill:"red"}).setOrigin(0.5);
 
         botaoMenu.on('pointerdown',() => {
             this.scene.start('Menu');
@@ -163,6 +159,12 @@ var GameOver = new Phaser.Class({
     },
 
     update(){
+
+        if(enter.isDown){
+
+            this.scene.start('Menu');
+        
+        }
 
         if(highScore < score){
             highScore = score;
@@ -188,19 +190,19 @@ var GameWiner = new Phaser.Class({
         botaoMenu = this.add.image(890, 645, 'botao').setInteractive();
 
         texto = this.add.text(game.config.width /1.15, game.config.height /1.19, 'Menu',
-        {fontSize:'40px', fontFamily: 'Creepy', fill:"red"}).setOrigin(0.5);
+        {fontSize:'40px', fontFamily: 'Bloody Office', fill:"red"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/4.3, game.config.height/7, 'Score:',
-            {fontSize:'40px', fontFamily: 'Creepy', fill:"red"}).setOrigin(0.5);
+            {fontSize:'40px', fontFamily: 'Bloody Office', fill:"red"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/2.5, game.config.height/6.8, score,
-        {fontSize:'40px', fontFamily: 'Creepy',fill:"red"}).setOrigin(0.5);
+        {fontSize:'40px', fontFamily: 'Bloody Office',fill:"red"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/1.6, game.config.height/7, 'Recorde:',
-        {fontSize:'40px', fontFamily:'Creepy' ,fill:"red"}).setOrigin(0.5);
+        {fontSize:'40px', fontFamily:'Bloody Office' ,fill:"red"}).setOrigin(0.5);
 
         texto = this.add.text(game.config.width/1.3, game.config.height/6.8, highScore,
-        {fontSize:'40px', fontFamily: 'Creepy',fill:"red"}).setOrigin(0.5);
+        {fontSize:'40px', fontFamily: 'Bloody Office',fill:"red"}).setOrigin(0.5);
 
         botaoMenu.on('pointerdown',() => {
             this.scene.start('Menu'); 
@@ -524,7 +526,7 @@ var Principal = new Phaser.Class({
         
         //Acompanhando o placar e a tela
         textTela = this.add.text(20, 0,'0', {
-            fontFamily: 'Creepy',
+            fontFamily: 'Rocky AOE',
             fontSize: '25px',
             backgroundColor: 'rgba(255, 255, 255, 0.5)',
             fill: 'red'

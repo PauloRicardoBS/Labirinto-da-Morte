@@ -3,17 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Labirinto da Morte</title>     
+        <title>Labirinto da Morte</title>  
+        
+       
         
     </head>
 
-    <body>
+    <body background="img/placares.png" bgproperties="fixed">
 
-        <h1>Placar</h1>
+        <h1 style="color:rgb(252, 251, 248); font-family: Bloody Office; margin-top: 3%; margin-left: 16%;  font-size: 63px;" >OS 10 MAIORES PLACARES</h1>
 
-        <ul id='userList'>
-            <hr>
-            
+        <ul id='userList' style="color:#fcfbf8; font-family: Bloody Office; margin-top: 4%; margin-left: 17%;  font-size: 50px;">
+                
         </ul>
                            
         <script  src="js/phaser.min.js"></script>
@@ -24,13 +25,20 @@
         <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
         <script  src="js/placar.js"></script>
 
-        <ul>
-                <li>
-                    <a href="index.html">Voltar</a>
-                </li>
-            </ul>  
-
         
+            <div id="voltar" class="voltar">
+
+                <ul>
+                                                           
+                        <form method="get" action="index.html">
+                            <button type="submit" style="color:rgb(109, 7, 12); margin-left: 26%; padding:2.5px; font-family: Rocky AOE; font-size: 28px; background-color: rgb(255, 255, 0);">VOLTAR</button>
+                         </form>
+    
+            
+                       
+                </ul>            
+                
+            </div>
     
     </body>
 
