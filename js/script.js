@@ -543,8 +543,8 @@ var Principal = new Phaser.Class({
         textTela = this.add.text(20, 0,'0', {
             fontFamily: 'Rocky AOE',
             fontSize: '25px',
-            backgroundColor: 'rgba(255, 255, 255, 0.5)',
-            fill: 'red'
+            backgroundColor: 'rgba(255, 255, 255, 0.7)',
+            fill: 'black'
     
         }).setScrollFactor(0);
         
