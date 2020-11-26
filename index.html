@@ -33,6 +33,18 @@
                 display: block;
             }
 
+            .userLista{
+                position:absolute;
+                margin-top: 17.15%;
+                margin-left: 70%;
+                margin-right: 0%;
+                width: 350px;
+                height: 480px;
+                padding: 25px;
+                background:fixed;
+                display: block;
+            }
+
 
         
         </style>  
@@ -49,9 +61,15 @@
 
     <body>
 
-                
+        <ul id='lista' class='lista'> 
+
+        </ul>
+
+                      
         <script  src="js/phaser.min.js"></script>
         <script  type = "module" src="js/script.js"></script>
+        <script  src="js/placar.js"></script>
+        <script  src="js/recorde.js"></script>
 
         <div id="popup" class="popup">
             
@@ -59,26 +77,24 @@
             
         </div>
 
+        
+
         <div id="placar" class="placar">
 
             <ul>
-                
-                                     
+                                                     
                     <form method="get" action="placar.html">
                         <button type="submit" style="color:rgb(9, 45, 143); padding:2.5px">PLACAR</button>
                      </form>
-
-        
-
-               
+              
             </ul>            
             
         </div>
+
     
         <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
-
-        
+      
     
     </body>
 
