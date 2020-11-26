@@ -52,6 +52,8 @@ var Menu = new Phaser.Class({
 
         botaoDescricao.on('pointerdown',() => {
             this.scene.start('Regras');
+            document.getElementById("popup").style.display = "none"; 
+            document.getElementById("placar").style.display = "none";
         });
 
 
@@ -104,14 +106,26 @@ var Regras = new Phaser.Class({
         botaoMenu = this.add.image(910, 645, 'botao').setInteractive();
 
         texto = this.add.text(game.config.width /1.12, game.config.height /1.19, 'Menu',
-        {fontSize:'40px', fontFamily:'Creepy', fill:"red"}).setOrigin(0.5);
+        {fontSize:'40px', fontFamily:'Bloody Office', fill:"red"}).setOrigin(0.5);
 
         botaoMenu.on('pointerdown',() => {
             this.scene.start('Menu');
-        });         
+            document.getElementById("popup").style.display = "block"; 
+            document.getElementById("placar").style.display = "block";
+        }); 
+        
+        enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     },
 
     update(){
+
+        if(enter.isDown){
+
+            this.scene.start('Menu');
+            document.getElementById("popup").style.display = "block"; 
+            document.getElementById("placar").style.display = "block";
+        
+        }       
         
     }   
 })
@@ -155,6 +169,8 @@ var GameOver = new Phaser.Class({
         }); 
         
         cadastrarScore();  
+
+        enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         
     },
 
@@ -163,6 +179,8 @@ var GameOver = new Phaser.Class({
         if(enter.isDown){
 
             this.scene.start('Menu');
+            document.getElementById("popup").style.display = "block"; 
+            document.getElementById("placar").style.display = "block";
         
         }
 
@@ -211,9 +229,18 @@ var GameWiner = new Phaser.Class({
 
         
         cadastrarScore();
+        enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     },
 
     update(){
+
+        if(enter.isDown){
+
+            this.scene.start('Menu');
+            document.getElementById("popup").style.display = "block"; 
+            document.getElementById("placar").style.display = "block";
+        
+        }
 
         if(highScore < score){
             highScore = score;
